@@ -1,13 +1,41 @@
 package it.reply.buins.eventshubauth.controllers;
 
+import it.reply.buins.eventshubauth.exceptions.AuthException;
+import it.reply.buins.eventshubauth.models.AuthRequest;
+import it.reply.buins.eventshubauth.models.AuthResponse;
+import it.reply.buins.eventshubauth.models.SignUpRequest;
+import it.reply.buins.eventshubauth.services.AuthService;
+import it.reply.buins.eventshubauth.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller("/")
+@RestController
+@Controller
+@RequestMapping("/auth")
 public class AuthController {
-    @GetMapping("/auth")
-    public String performLogin() {
-        return "hello world";
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/signup")
+    public AuthResponse signUp(
+        @RequestBody SignUpRequest signUpRequest
+    ) throws AuthException {
+
+        authService.save(signUpRequest);
+        return AuthResponse.builder().username(signUpRequest.getUsername()).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody AuthRequest authRequest
+    ) throws AuthException {
+        authService.login(authRequest);
+        HttpHeaders headers = new HttpHeaders();
+        String jwt = JwtUtils.generateToken(authRequest.getUsername());
+        headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/");
+        return ResponseEntity.ok().headers(headers).body(AuthResponse.builder().username(authRequest.getUsername()).build());
     }
 }
