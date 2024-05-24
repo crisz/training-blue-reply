@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Controller
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthController {
     @Autowired
     private AuthService authService;
@@ -36,7 +37,7 @@ public class AuthController {
         UserEntity user = authService.login(authRequest);
         HttpHeaders headers = new HttpHeaders();
         String jwt = JwtUtils.generateToken(user.getUsername(), user.getId());
-        headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/");
+        headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/; SameSite=None; Secure;");
         return ResponseEntity.ok().headers(headers).body(AuthResponse.builder().username(authRequest.getUsername()).build());
     }
 }

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 const TOKEN_KEY = 'my-token';
 
@@ -9,19 +11,15 @@ const TOKEN_KEY = 'my-token';
 export class AuthenticationService {
 	token = '';
   
-  constructor() {
-		this.loadToken();
+  constructor(private httpClient: HttpClient) {
 	}
 
-
-	async loadToken() {
-	
-	}
-
-  login(credentials: { email: string; password: string }): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      resolve(true); 
-    });
+  login(credentials: { email: string; password: string }): Promise<any> {
+    return firstValueFrom(this.httpClient.post('api/auth/login', {
+      username: credentials.email,
+      email: credentials.email,
+      password: credentials.password
+    }));
   }
 
 	logout(): boolean {

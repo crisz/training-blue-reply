@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, Routes } from '@angular/router';
@@ -11,7 +12,7 @@ import { Router, Routes } from '@angular/router';
 })
 export class EventListComponent {
 
-  constructor(private router: Router){
+  constructor(private router: Router, private httpClient: HttpClient){
 
   }
 
@@ -19,4 +20,7 @@ export class EventListComponent {
     this.router.navigate(['/login-page']); // Navigate to the 'other' route
   }
 
+  getEvents() {
+    this.httpClient.get('/api/events').subscribe();
+  }
 }
