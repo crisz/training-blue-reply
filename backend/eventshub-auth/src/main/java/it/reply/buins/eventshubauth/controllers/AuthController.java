@@ -1,5 +1,6 @@
 package it.reply.buins.eventshubauth.controllers;
 
+import it.reply.buins.eventshubauth.entities.UserEntity;
 import it.reply.buins.eventshubauth.exceptions.AuthException;
 import it.reply.buins.eventshubauth.models.AuthRequest;
 import it.reply.buins.eventshubauth.models.AuthResponse;
@@ -32,9 +33,9 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(
             @RequestBody AuthRequest authRequest
     ) throws AuthException {
-        authService.login(authRequest);
+        UserEntity user = authService.login(authRequest);
         HttpHeaders headers = new HttpHeaders();
-        String jwt = JwtUtils.generateToken(authRequest.getUsername());
+        String jwt = JwtUtils.generateToken(user.getUsername(), user.getId());
         headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/");
         return ResponseEntity.ok().headers(headers).body(AuthResponse.builder().username(authRequest.getUsername()).build());
     }
