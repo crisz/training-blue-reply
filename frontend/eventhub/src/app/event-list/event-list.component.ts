@@ -26,12 +26,9 @@ export class EventListComponent {
   }
 
   ngOnInit(){
-    this.store.dispatch(new UserAction.SetUserData({email:'',password:''}));
   }
 
   goToPageLogin(){
-    let email = this.store.selectSnapshot(UserState.getUserEmail);
-    let ciao = this.userData;
     this.router.navigate(['/login-page']); // Navigate to the 'other' route
   }
 
