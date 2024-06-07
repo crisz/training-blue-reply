@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 import { SharedModule } from '../shared/shared.module';
-
+import { UserAction } from '../../state/user.action';
+import {  Store } from '@ngxs/store';
+import { IUserState } from '../models/user';
+import { UserState } from '../../state/user.state';
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -20,7 +23,8 @@ export class LoginPageComponent {
 		private authService: AuthenticationService,
 		private alertController: AlertController,
 		private router: Router,
-		private loadingController: LoadingController
+		private loadingController: LoadingController,
+		private store : Store
 	) {
    
   }
@@ -33,6 +37,7 @@ export class LoginPageComponent {
 	}
 
 	async login() {
+		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password}));
 		this.authService.login(this.loginForm?.value).then(async res => {
       if (res) {
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
