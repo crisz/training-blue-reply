@@ -1,0 +1,10 @@
+###################################
+Setup progetto:
+- npm i
+- npm run start --> aprire pagina localhost:4200
+
+
+
+Info aggiuntive:
+- SharedModule creato per centralizzare l'import dei moduli usati in app
+- per debug dello store usare estensione Chrome Redux Devtools
