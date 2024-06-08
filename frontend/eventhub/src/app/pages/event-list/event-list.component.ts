@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, Routes } from '@angular/router';
-import { UserState } from '../../state/user.state';
-import { UserObj } from '../models/user';
+import { UserState } from '../../../state/user.state';
+import { UserObj } from '../../models/user';
 import { NgxsSelectSnapshotModule, SelectSnapshot } from '@ngxs-labs/select-snapshot';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { Store } from '@ngxs/store';
-import { UserAction } from '../../state/user.action';
+import { UserAction } from '../../../state/user.action';
 
 @Component({
   selector: 'app-event-list',

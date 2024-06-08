@@ -2,12 +2,12 @@ import { Component, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AuthenticationService } from '../services/authentication.service';
-import { SharedModule } from '../shared/shared.module';
-import { UserAction } from '../../state/user.action';
+import { AuthenticationService } from '../../services/authentication.service';
+import { SharedModule } from '../../shared/shared.module';
+import { UserAction } from '../../../state/user.action';
 import {  Store } from '@ngxs/store';
-import { IUserState } from '../models/user';
-import { UserState } from '../../state/user.state';
+import { IUserState } from '../../models/user';
+import { UserState } from '../../../state/user.state';
 @Component({
   selector: 'app-login-page',
   standalone: true,
