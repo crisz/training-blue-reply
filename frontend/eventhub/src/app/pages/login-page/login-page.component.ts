@@ -60,6 +60,10 @@ export class LoginPageComponent {
     });
 	}
 
+	goBack(){
+		this.router.navigate(['/events-list']);
+	}
+
 	// Easy access for form fields
 	get email() {
 		return this.loginForm?.get('email');

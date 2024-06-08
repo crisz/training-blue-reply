@@ -32,6 +32,10 @@ export class EventListComponent {
     this.router.navigate(['/login-page']); // Navigate to the 'other' route
   }
 
+  goToPageSignOn(){
+    this.router.navigate(['/app-registration-page']); // Navigate to the 'other' route
+  }
+
   getEvents() {
     this.httpClient.get('/api/events').subscribe();
   }
