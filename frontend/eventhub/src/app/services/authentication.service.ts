@@ -15,11 +15,7 @@ export class AuthenticationService {
 	}
 
   login(credentials: { email: string; password: string }): Promise<any> {
-    return firstValueFrom(this.httpClient.post('api/auth/login', {
-      username: credentials.email,
-      email: credentials.email,
-      password: credentials.password
-    }));
+    return Promise.resolve(true);
   }
 
 	logout(): boolean {
