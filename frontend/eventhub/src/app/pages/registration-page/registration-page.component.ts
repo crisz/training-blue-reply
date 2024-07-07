@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-import { AlertController } from '@ionic/angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registration-page',
@@ -19,12 +19,13 @@ export class RegistrationPageComponent {
   registrationForm: FormGroup = new FormGroup({});
   readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder,private router: Router,private authService: AuthenticationService, private alertController: AlertController){
+  constructor(private fb: FormBuilder,private router: Router,private authService: AuthenticationService, private _snackBar: MatSnackBar){
 
   }
 
   ngOnInit() {
 		this.registrationForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(6)]],
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
@@ -33,7 +34,8 @@ export class RegistrationPageComponent {
   register(){
 		this.authService.register(this.registrationForm?.value).then(async res => {
       if (res) {
-				this.router.navigateByUrl('/events-list', { replaceUrl: true });
+        this._snackBar.open("Registration is Success", "OK");
+				this.router.navigateByUrl('/login-page', { replaceUrl: true });
       } else {
 				this.dialog.open(DialogModalComponent, {
           data:{
@@ -54,7 +56,7 @@ export class RegistrationPageComponent {
 }
 
   goBack(){
-		this.router.navigate(['/events-list']);
+		this.router.navigate(['/login-page']);
 	}
 
   goToPageLogin(){

@@ -8,3 +8,5 @@ Setup progetto:
 Info aggiuntive:
 - SharedModule creato per centralizzare l'import dei moduli usati in app
 - per debug dello store usare estensione Chrome Redux Devtools
+- style.scss per centralizzare le classi scss (ci sono font, icone , immagini e classi comuni)
+- per i messagi da mostrare all'utente usato il "dialog popup", per i toas usato this._snackBar.open()

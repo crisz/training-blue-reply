@@ -4,5 +4,6 @@ export interface IUserState {
 
   export interface UserObj {
     email:string | null,
-    password:string | null
+    password:string | null,
+    username:string | null
   }

@@ -8,12 +8,20 @@
       <form class="text-center" [formGroup]="registrationForm" novalidate>
         <div>
           <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" required>
-            <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
-            <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username" required>
+            <mat-error *ngIf="registrationForm.get('username')?.dirty && registrationForm.get('username')?.hasError('required')">Username is required</mat-error>
+            <mat-error *ngIf="registrationForm.get('username')?.dirty && registrationForm.get('username')?.hasError('username')">Invalid username format</mat-error>
           </mat-form-field>
         </div>
+        <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" required>
+              <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+            </mat-form-field>
+          </div>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
@@ -23,7 +31,7 @@
         </div>
         <div class="flex column">
           <button class="mbotton10" (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
-          <button color="primary" mat-flat-button (click)="goToPageLogin()">Go to Login</button>
+          <button mat-flat-button (click)="goToPageLogin()">Go to Login</button>
         </div>
         <!-- <div style="margin-top: 20px;" class="centered">
           <div class="arrow-back" (click)="goBack()"></div>

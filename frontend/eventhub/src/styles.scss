@@ -37,8 +37,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .mbotton10{
     margin-bottom: 10px;
   }
-  .mTop10{
-    margin-top: 10px;
+  .mTop20{
+    margin-top: 20px;
   }
 
 //icon ---------------------------
@@ -62,4 +62,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .font-title-page{
   font-size: 30px;
   font-family: fantasy;
+}
+
+//color button
+.red-button{
+  background-color: red;
+}
+.blue-button{
+  background-color: blue
+}
+.green-button{
+  background-color: green
 }

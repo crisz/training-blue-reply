@@ -10,6 +10,7 @@ import { IUserState } from '../../models/user';
 import { UserState } from '../../../state/user.state';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -26,7 +27,7 @@ export class LoginPageComponent {
 		private authService: AuthenticationService,
 		private alertController: AlertController,
 		private router: Router,
-		private loadingController: LoadingController,
+		private _snackBar : MatSnackBar,
 		private store : Store
 	) {
    
@@ -35,6 +36,7 @@ export class LoginPageComponent {
 	ngOnInit() {
 		this.loginForm = this.fb.group({
 			email: ['', [Validators.required, Validators.email]],
+			username: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(6)]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
 	}
@@ -42,7 +44,8 @@ export class LoginPageComponent {
 	async login() {
 		this.authService.login(this.loginForm?.value).then(async res => {
       if (res) {
-		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password}));
+		this._snackBar.open("Login is Success", "OK");
+		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
 		this.dialog.open(DialogModalComponent, {
