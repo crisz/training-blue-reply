@@ -31,15 +31,15 @@ export class LoginPageComponent {
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
-			email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
-			password: ['cityslicka', [Validators.required, Validators.minLength(6)]]
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
 	}
 
 	async login() {
-		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password}));
 		this.authService.login(this.loginForm?.value).then(async res => {
       if (res) {
+		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password}));
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
 				const alert = await this.alertController.create({
