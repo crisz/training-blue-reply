@@ -1,6 +1,6 @@
-<ion-header class="centered">
+<ion-header class="centered mTop10">
     <ion-toolbar color="primary">
-      <ion-title>REGISTRATION PAGE</ion-title>
+      <ion-title class="font-title-page">REGISTRATION PAGE</ion-title>
     </ion-toolbar>
   </ion-header>
 <ion-content class="primaryContent">
@@ -22,7 +22,7 @@
           </mat-form-field>
         </div>
         <div class="flex column">
-          <button (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+          <button class="mbotton10" (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
           <button color="primary" mat-flat-button (click)="goToPageLogin()">Go to Login</button>
         </div>
         <!-- <div style="margin-top: 20px;" class="centered">
