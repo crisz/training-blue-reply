@@ -3,6 +3,17 @@
       <ion-title class="font-title-page">EVENT LIST PAGE</ion-title>
     </ion-toolbar>
   </ion-header>
-
-<div>Logged in : {{userData?.email}}</div>
-<div (click)="goToLoginPage()" class="exit-icon"></div>
+  <div>Logged in : {{userData?.email}}</div>
+  <div (click)="goToLoginPage()" class="exit-icon"></div>
+<div class="primaryContent">
+    <ion-content>
+        <mat-list role="list">
+            <mat-list-item (click)="openDescription('Item 1')" role="listitem">Item 1</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 2</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 3</mat-list-item>
+          </mat-list>
+          <button color="primary" mat-flat-button>Add mew Item</button>
+    </ion-content>
+</div>
