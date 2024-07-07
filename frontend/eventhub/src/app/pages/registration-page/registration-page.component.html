@@ -1,1 +1,27 @@
-<p>registration-page works!</p>
+<ion-content class="primaryContent">
+    <div class="containerBox">
+      <form class="text-center" (ngSubmit)="register()" [formGroup]="registrationForm" novalidate>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="registrationForm.get('email')?.dirty && registrationForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            <mat-error *ngIf="registrationForm.get('password')?.dirty && registrationForm.get('password')?.hasError('required')">Password is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <button (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+        </div>
+        <div style="margin-top: 20px;" class="centered">
+          <div class="arrow-back" (click)="goBack()"></div>
+        </div>
+      </form>
+    </div>
+  </ion-content>

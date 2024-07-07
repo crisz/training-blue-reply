@@ -15,7 +15,19 @@ export class AuthenticationService {
 	}
 
   login(credentials: { email: string; password: string }): Promise<any> {
-    return Promise.resolve(true);
+    return firstValueFrom(this.httpClient.post('api/auth/login', {
+      username: credentials.email,
+      email: credentials.email,
+      password: credentials.password
+    }));
+  }
+
+  register(credentials: { email: string; password: string }): Promise<any> {
+    return firstValueFrom(this.httpClient.post('api/auth/signup', {
+      username: credentials.email,
+      email: credentials.email,
+      password: credentials.password
+    }));
   }
 
 	logout(): boolean {
