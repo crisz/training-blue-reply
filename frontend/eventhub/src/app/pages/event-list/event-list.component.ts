@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, Routes } from '@angular/router';
 import { UserState } from '../../../state/user.state';
@@ -8,6 +8,9 @@ import { NgxsSelectSnapshotModule, SelectSnapshot } from '@ngxs-labs/select-snap
 import { SharedModule } from '../../shared/shared.module';
 import { Store } from '@ngxs/store';
 import { UserAction } from '../../../state/user.action';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-event-list',
@@ -20,24 +23,29 @@ import { UserAction } from '../../../state/user.action';
 export class EventListComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined; // ritorna il correlation id
-
-  constructor(private router: Router, private httpClient: HttpClient,private store: Store){
+  readonly dialog = inject(MatDialog);
+  
+  constructor(private router: Router, private httpClient: HttpClient,private store: Store, private eventService: EventsService){
 
   }
 
   ngOnInit(){
+    if(!this.userData?.email){
+      this.dialog.open(DialogModalComponent, {
+        data:{
+          title:"Utente non loggato",
+          subtitle:"Fai la login"
+        }
+      });
+      this.router.navigate(['/login-page']);
+    }
+    else{
+      this.eventService.retrieveEvents();
+    }
   }
 
-  goToPageLogin(){
-    this.router.navigate(['/login-page']); // Navigate to the 'other' route
-  }
-
-  goToPageSignOn(){
-    this.router.navigate(['/app-registration-page']); // Navigate to the 'other' route
-  }
-
-  getEvents() {
-    this.httpClient.get('/api/events').subscribe();
+  goToLoginPage(){
+    this.router.navigate(['/login-page']);
   }
 }
 

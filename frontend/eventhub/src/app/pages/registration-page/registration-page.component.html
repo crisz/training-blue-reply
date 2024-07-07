@@ -1,3 +1,8 @@
+<ion-header class="centered">
+    <ion-toolbar color="primary">
+      <ion-title>REGISTRATION PAGE</ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content class="primaryContent">
     <div class="containerBox">
       <form class="text-center" [formGroup]="registrationForm" novalidate>
@@ -16,12 +21,13 @@
             <mat-error *ngIf="registrationForm.get('password')?.dirty && registrationForm.get('password')?.hasError('required')">Password is required</mat-error>
           </mat-form-field>
         </div>
-        <div>
+        <div class="flex column">
           <button (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+          <button color="primary" mat-flat-button (click)="goToPageLogin()">Go to Login</button>
         </div>
-        <div style="margin-top: 20px;" class="centered">
+        <!-- <div style="margin-top: 20px;" class="centered">
           <div class="arrow-back" (click)="goBack()"></div>
-        </div>
+        </div> -->
       </form>
     </div>
   </ion-content>

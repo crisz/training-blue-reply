@@ -57,6 +57,10 @@ export class RegistrationPageComponent {
 		this.router.navigate(['/events-list']);
 	}
 
+  goToPageLogin(){
+    this.router.navigate(['/login-page']); // Navigate to the 'other' route
+  }
+
 	// Easy access for form fields
 	get email() {
 		return this.registrationForm?.get('email');

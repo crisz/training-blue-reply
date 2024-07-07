@@ -1,6 +1,8 @@
+<ion-header class="centered">
+    <ion-toolbar color="primary">
+      <ion-title>EVENT LIST PAGE</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<div>{{userData?.email}}</div>
-<button color="primary" mat-flat-button (click)="goToPageLogin()">Login</button>
-<button color="primary" mat-flat-button (click)="goToPageSignOn()">Register</button>
-<br><br><br>
-<button (click)="getEvents()">È FATTAAAA</button>
+<div>Logged in : {{userData?.email}}</div>
+<div (click)="goToLoginPage()" class="exit-icon"></div>

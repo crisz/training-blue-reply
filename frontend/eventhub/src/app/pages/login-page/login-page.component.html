@@ -1,8 +1,8 @@
-<!-- <ion-header>
+ <ion-header class="centered">
     <ion-toolbar color="primary">
-      <ion-title>Login</ion-title>
+      <ion-title>LOGIN PAGE</ion-title>
     </ion-toolbar>
-  </ion-header> -->
+  </ion-header>
   
   <ion-content class="primaryContent">
     <div class="containerBox">
@@ -22,12 +22,13 @@
             <mat-error *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.hasError('required')">Password is required</mat-error>
           </mat-form-field>
         </div>
-        <div>
+        <div class="flex column">
           <button (click)="login()" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Log in</button>
+          <button color="primary" mat-flat-button (click)="goToPageSignOn()">Go to Sign Up</button>
         </div>
-        <div style="margin-top: 20px;" class="centered">
+        <!-- <div style="margin-top: 20px;" class="centered">
           <div class="arrow-back" (click)="goBack()"></div>
-        </div>
+        </div> -->
       </form>
     </div>
   </ion-content>
