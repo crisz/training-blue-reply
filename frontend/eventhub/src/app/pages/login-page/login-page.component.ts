@@ -1,4 +1,4 @@
-import { Component, Optional } from '@angular/core';
+import { Component, Optional, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -8,6 +8,8 @@ import { UserAction } from '../../../state/user.action';
 import {  Store } from '@ngxs/store';
 import { IUserState } from '../../models/user';
 import { UserState } from '../../../state/user.state';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -17,6 +19,7 @@ import { UserState } from '../../../state/user.state';
 })
 export class LoginPageComponent {
   loginForm: FormGroup = new FormGroup({});
+  readonly dialog = inject(MatDialog);
 
 	constructor(
 		private fb: FormBuilder,
@@ -42,21 +45,21 @@ export class LoginPageComponent {
 		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password}));
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
-				const alert = await this.alertController.create({
-					header: 'Login failed',
-					message: 'error',
-					buttons: ['OK']
-				});
-        await alert.present();
+		this.dialog.open(DialogModalComponent, {
+			data:{
+				title:"Errore",
+				subtitle:"Errore durante il processo di login"
+			}
+		});
       }
     })
     .catch(async error => {
-      const alert = await this.alertController.create({
-        header: 'Login failed',
-        message: 'error',
-        buttons: ['OK']
-      });
-      await alert.present();
+		this.dialog.open(DialogModalComponent, {
+			data:{
+				title:"Errore",
+				subtitle:"Errore durante il processo di login"
+			}
+		});
     });
 	}
 

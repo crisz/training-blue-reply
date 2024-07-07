@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertController } from '@ionic/angular';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 
 @Component({
   selector: 'app-registration-page',
@@ -15,6 +17,7 @@ import { AlertController } from '@ionic/angular';
 export class RegistrationPageComponent {
 
   registrationForm: FormGroup = new FormGroup({});
+  readonly dialog = inject(MatDialog);
 
   constructor(private fb: FormBuilder,private router: Router,private authService: AuthenticationService, private alertController: AlertController){
 
@@ -32,14 +35,22 @@ export class RegistrationPageComponent {
       if (res) {
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
-				const alert = await this.alertController.create({
-					header: 'Registration failed',
-					message: 'error',
-					buttons: ['OK']
-				});
-        await alert.present();
+				this.dialog.open(DialogModalComponent, {
+          data:{
+            title:"Errore",
+            subtitle:"Errore durante il processo di login"
+          }
+        });
       }
-    });
+    }).catch(async error => {
+      this.dialog.open(DialogModalComponent, {
+        data:{
+          title:"Errore",
+          subtitle:"Errore durante il processo di login"
+        }
+      });
+      });
+    ;
 }
 
   goBack(){
