@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +13,6 @@ import {MatListModule} from '@angular/material/list';
   declarations: [],
   providers: [Store],
   imports: [
-    IonicModule,
     ReactiveFormsModule,
     CommonModule,
     MatInputModule,
@@ -26,7 +24,6 @@ import {MatListModule} from '@angular/material/list';
     NgxsSelectSnapshotModule
   ],
   exports: [
-    IonicModule,
     ReactiveFormsModule,
     CommonModule,
     MatInputModule,

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginPageComponent } from './login-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared/shared.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -8,7 +11,7 @@ describe('LoginPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginPageComponent]
+      imports: [LoginPageComponent, HttpClientModule, SharedModule, NoopAnimationsModule]
     })
     .compileComponents();
     

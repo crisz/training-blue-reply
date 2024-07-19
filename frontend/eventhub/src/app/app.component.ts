@@ -1,13 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',

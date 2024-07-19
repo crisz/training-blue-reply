@@ -10,8 +10,8 @@ import {
 } from '@angular/material/dialog';
 
 interface DialogData {
-  title:string;
-  subtitle:string;
+  title: string;
+  subtitle: string;
 }
 
 @Component({

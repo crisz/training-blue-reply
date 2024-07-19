@@ -7,7 +7,6 @@ import { UserObj } from '../../models/user';
 import { NgxsSelectSnapshotModule, SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { SharedModule } from '../../shared/shared.module';
 import { Store } from '@ngxs/store';
-import { UserAction } from '../../../state/user.action';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 import { EventsService } from '../../services/events.service';

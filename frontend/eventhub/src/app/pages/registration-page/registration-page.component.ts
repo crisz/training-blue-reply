@@ -10,7 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-registration-page',
   standalone: true,
-  imports: [SharedModule],
+  imports: [ SharedModule ],
   templateUrl: './registration-page.component.html',
   styleUrl: './registration-page.component.scss'
 })
@@ -40,7 +40,7 @@ export class RegistrationPageComponent {
 				this.dialog.open(DialogModalComponent, {
           data:{
             title:"Errore",
-            subtitle:"Errore durante il processo di login"
+            subTitle:"Errore durante il processo di login"
           }
         });
       }
