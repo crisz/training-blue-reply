@@ -16,11 +16,18 @@ public class EventEntity {
     private Long id;
 
     @Column
-    private String userId;
+    private String title;
 
     @Column
-    private String password;
+    private String description;
 
     @Column
-    private String email;
+    private String place;
+
+    @Column
+    private String imageUrl;
+
+    public EventEntity(String userId, String password, String email) {
+
+    }
 }

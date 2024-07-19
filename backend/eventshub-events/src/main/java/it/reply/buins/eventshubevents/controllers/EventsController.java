@@ -1,24 +1,41 @@
 package it.reply.buins.eventshubevents.controllers;
 
+import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
+import it.reply.buins.eventshubevents.dto.EventResponseDto;
 import it.reply.buins.eventshubevents.exceptions.AuthException;
 import it.reply.buins.eventshubevents.models.AuthResponse;
-import it.reply.buins.eventshubevents.models.SignUpRequest;
 import it.reply.buins.eventshubevents.services.EventsService;
 import it.reply.buins.eventshubevents.utils.JwtUtils;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
 
 @RestController
 @Controller
 @RequestMapping("/events")
 public class EventsController {
     @Autowired
-    private EventsService authService;
+    private EventsService eventsService;
 
-    @GetMapping("")
+    @Autowired
+    private ServletContext servletContext;
+
+    @GetMapping
     public AuthResponse getAllEvents(
         HttpServletRequest request
     ) throws AuthException {
@@ -26,7 +43,45 @@ public class EventsController {
         return AuthResponse.builder().username(JwtUtils.getUsernameFromToken(token)+JwtUtils.getUserIdFromToken(token)).build();
     }
 
-    private String getTokenFromCookies(Cookie[] cookies) {
+    @PostMapping
+    public EventResponseDto postEvent(@ModelAttribute EventMultiPartPayloadDto event) {
+        if (event.getTitle() == null) throw new RuntimeException("Title is required");
+        if (event.getDescription() == null) throw new RuntimeException("Description is required");
+        if (event.getPlace() == null) throw new RuntimeException("Place is required");
+
+        return eventsService.createEvent(event);
+    }
+
+    @GetMapping("/image/{filename}")
+    public ResponseEntity<UrlResource> serveFile(@PathVariable String filename) {
+        try {
+            Path file = Paths.get(UPLOAD_FOLDER).resolve(filename);
+            UrlResource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                // Determine the file's content type
+                String contentType = Files.probeContentType(file);
+                if (contentType == null) {
+                    contentType = servletContext.getMimeType(file.toString());
+                }
+                if (contentType == null) {
+                    contentType = "application/octet-stream";
+                }
+
+                return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                        .body(resource);
+
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+        private String getTokenFromCookies(Cookie[] cookies) {
         if (cookies == null) return null;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("JWT")) {
