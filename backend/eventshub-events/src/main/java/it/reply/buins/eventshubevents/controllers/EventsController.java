@@ -2,6 +2,7 @@ package it.reply.buins.eventshubevents.controllers;
 
 import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
 import it.reply.buins.eventshubevents.dto.EventResponseDto;
+import it.reply.buins.eventshubevents.entities.EventEntity;
 import it.reply.buins.eventshubevents.exceptions.AuthException;
 import it.reply.buins.eventshubevents.models.AuthResponse;
 import it.reply.buins.eventshubevents.services.EventsService;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
 
@@ -35,21 +37,33 @@ public class EventsController {
     @Autowired
     private ServletContext servletContext;
 
+    @GetMapping("/all")
+    public List<EventEntity> getAllEvents() {
+        return this.eventsService.getAllEvents();
+    }
+
     @GetMapping
-    public AuthResponse getAllEvents(
-        HttpServletRequest request
-    ) throws AuthException {
+    public List<EventEntity> getMyEvents(
+            HttpServletRequest request
+    ) {
         String token = getTokenFromCookies(request.getCookies());
-        return AuthResponse.builder().username(JwtUtils.getUsernameFromToken(token)+JwtUtils.getUserIdFromToken(token)).build();
+        Long userId = JwtUtils.getUserIdFromToken(token);
+        return this.eventsService.getMyEvents(userId);
+
     }
 
     @PostMapping
-    public EventResponseDto postEvent(@ModelAttribute EventMultiPartPayloadDto event) {
+    public EventResponseDto postEvent(
+            HttpServletRequest request,
+            @ModelAttribute EventMultiPartPayloadDto event
+    ) {
         if (event.getTitle() == null) throw new RuntimeException("Title is required");
         if (event.getDescription() == null) throw new RuntimeException("Description is required");
         if (event.getPlace() == null) throw new RuntimeException("Place is required");
+        String token = getTokenFromCookies(request.getCookies());
+        Long userId = JwtUtils.getUserIdFromToken(token);
 
-        return eventsService.createEvent(event);
+        return eventsService.createEvent(event, userId);
     }
 
     @GetMapping("/image/{filename}")
@@ -80,8 +94,7 @@ public class EventsController {
         }
     }
 
-
-        private String getTokenFromCookies(Cookie[] cookies) {
+    private String getTokenFromCookies(Cookie[] cookies) {
         if (cookies == null) return null;
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("JWT")) {

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
@@ -26,10 +27,17 @@ public class EventsService {
         this.repository = repository;
     }
 
+    public List<EventEntity> getAllEvents() {
+        return this.repository.findAll();
+    }
 
-    public EventResponseDto createEvent(EventMultiPartPayloadDto eventFromFe) {
+    public List<EventEntity> getMyEvents(Long userId) {
+        return this.repository.findAllByUserId(userId);
+    }
+
+    public EventResponseDto createEvent(EventMultiPartPayloadDto eventFromFe, Long userId) {
         String imageUrl = uploadFile(eventFromFe.getImage());
-        EventEntity eventEntity = eventFromFe.toEntity(imageUrl);
+        EventEntity eventEntity = eventFromFe.toEntity(imageUrl, userId);
         return EventResponseDto.fromEntity(repository.save(eventEntity));
     }
 

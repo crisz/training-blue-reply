@@ -27,7 +27,6 @@ public class EventEntity {
     @Column
     private String imageUrl;
 
-    public EventEntity(String userId, String password, String email) {
-
-    }
+    @Column
+    private Long userId;
 }

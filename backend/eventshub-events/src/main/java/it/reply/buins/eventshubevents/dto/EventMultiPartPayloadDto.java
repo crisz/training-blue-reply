@@ -17,10 +17,10 @@ public class EventMultiPartPayloadDto {
     private String description;
     private String place;
     private MultipartFile image;
-    public EventEntity toEntity(String imageUrl) {
+    public EventEntity toEntity(String imageUrl, Long userId) {
         if (this.id != null) {
-            return new EventEntity(id, title, description, place, imageUrl);
+            return new EventEntity(id, title, description, place, imageUrl, userId);
         }
-        return new EventEntity(null, title, description, place, imageUrl);
+        return new EventEntity(null, title, description, place, imageUrl, userId);
     }
 }
