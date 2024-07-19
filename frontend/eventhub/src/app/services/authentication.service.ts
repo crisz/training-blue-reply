@@ -14,9 +14,17 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) {
 	}
 
-  login(credentials: { email: string; password: string }): Promise<any> {
+  login(credentials: { email: string; password: string , username:string}): Promise<any> {
     return firstValueFrom(this.httpClient.post('api/auth/login', {
-      username: credentials.email,
+      username: credentials.username,
+      email: credentials.email,
+      password: credentials.password
+    }));
+  }
+
+  register(credentials: { email: string; password: string , username:string}): Promise<any> {
+    return firstValueFrom(this.httpClient.post('api/auth/signup', {
+      username: credentials.username,
       email: credentials.email,
       password: credentials.password
     }));

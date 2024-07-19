@@ -15,3 +15,62 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .text-center{
     text-align: center;
   }
+  .primaryContent{
+    display: flex;
+    margin-top: 10%;
+    justify-content: center;
+  }
+  .flex{
+    display: flex;
+  }
+  .h100{
+    height: 100%;
+  }
+  .column{
+    flex-direction: column;
+  }
+
+  .self-center{
+    align-self: center;
+  }
+
+  .mbotton10{
+    margin-bottom: 10px;
+  }
+  .mTop20{
+    margin-top: 20px;
+  }
+
+//icon ---------------------------
+
+.arrow-back{
+  background-image: url("./assets/icons/reshot-icon-left-arrow.svg");
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+}
+
+.exit-icon{
+  background-image: url("./assets/icons/exit-icon.svg");
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+}
+
+//font ------------
+
+.font-title-page{
+  font-size: 30px;
+  font-family: fantasy;
+}
+
+//color button
+.red-button{
+  background-color: red;
+}
+.blue-button{
+  background-color: blue
+}
+.green-button{
+  background-color: green
+}

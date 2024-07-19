@@ -1,0 +1,42 @@
+ <ion-header class="centered mTop10">
+    <ion-toolbar color="primary">
+      <ion-title class="font-title-page">LOGIN PAGE</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="primaryContent">
+    <div class="containerBox">
+      <form class="text-center" [formGroup]="loginForm" novalidate>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username" required>
+            <mat-error *ngIf="loginForm.get('username')?.dirty && loginForm.get('username')?.hasError('required')">Username is required</mat-error>
+            <mat-error *ngIf="loginForm.get('username')?.dirty && loginForm.get('username')?.hasError('username')">Invalid username format</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            <mat-error *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            <mat-error *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="flex column">
+          <button class="mbotton10" (click)="login()" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Log in</button>
+          <button class="green-button" mat-flat-button (click)="goToPageSignOn()">Go to Sign Up</button>
+        </div>
+        <!-- <div style="margin-top: 20px;" class="centered">
+          <div class="arrow-back" (click)="goBack()"></div>
+        </div> -->
+      </form>
+    </div>
+  </ion-content>
