@@ -40,7 +40,9 @@ export class EventListComponent {
       this.router.navigate(['/login-page']);
     }
     else{
-      this.eventService.retrieveEvents(); //da leggere gli eventi dal servizio
+      this.eventService.retrieveEvents().then(res => {
+
+      }); //da leggere gli eventi dal servizio
     }
   }
 

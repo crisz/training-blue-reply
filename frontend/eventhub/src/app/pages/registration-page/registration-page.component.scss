@@ -1,0 +1,35 @@
+:host {
+    display: block;
+    height: 100vh; /* Cover the entire vertical viewport */
+    width: 100vw; /* Cover the entire horizontal viewport */
+    
+    .input-group {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    
+    .errors {
+      font-size: small;
+      color: #fff;
+      background: var(--ion-color-danger);
+      padding-left: 15px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .containerBox{
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow:  24px 24px 49px #d1d1d1,
+                   -24px -24px 49px #ffffff;
+                   padding: 20px;
+                   min-width: 100px;
+                   min-height: 250px;
+    }
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }

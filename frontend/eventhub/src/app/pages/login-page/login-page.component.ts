@@ -34,7 +34,6 @@ export class LoginPageComponent {
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
-			email: ['', [Validators.required, Validators.email]],
 			username: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(6)]],
 			password: ['', [Validators.required, Validators.minLength(6)]]
 		});
@@ -43,8 +42,10 @@ export class LoginPageComponent {
 	async login() {
 		this.authService.login(this.loginForm?.value).then(async res => {
       if (res) {
+		//mock 
+		res.email = "miaemail@gmail.com" //dovrebbe restituirla il servizio
 		this._snackBar.open("Login is Success", "OK");
-		this.store.dispatch(new UserAction.SetUserData({email: this.loginForm?.value.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
+		this.store.dispatch(new UserAction.SetUserData({email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
 		this.dialog.open(DialogModalComponent, {

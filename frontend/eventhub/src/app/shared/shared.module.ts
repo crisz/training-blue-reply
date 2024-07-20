@@ -8,6 +8,8 @@ import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 import { NgxsModule, Store } from '@ngxs/store';
 import { UserState } from '../../state/user.state';
 import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -28,6 +30,9 @@ import {MatListModule} from '@angular/material/list';
     CommonModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatToolbarModule
+
   ]
 })
 export class SharedModule { }
