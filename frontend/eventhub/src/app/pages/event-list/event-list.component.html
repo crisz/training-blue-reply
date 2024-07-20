@@ -14,12 +14,9 @@
 </mat-toolbar>
   <div>BENVENUTO {{userData?.username}}</div>
 <div class="primaryContent">
-        <mat-list role="list">
-            <mat-list-item (click)="openDescription('Item 1')" role="listitem">Item 1</mat-list-item>
+        <mat-list *ngFor="let item of eventDataList" role="list">
+            <mat-list-item (click)="openDescription('Item 1')" role="listitem">{{item.title}}</mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 2</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 3</mat-list-item>
-          </mat-list>
+        </mat-list>
           <button color="primary" mat-flat-button>Add mew Item</button>
 </div>

@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { SharedModule } from '../../shared/shared.module';
-import { UserAction } from '../../../state/user.action';
+import { UserAction } from '../../../state/user-state/user.action';
 import {  Store } from '@ngxs/store';
 import { IUserState } from '../../models/user';
-import { UserState } from '../../../state/user.state';
+import { UserState } from '../../../state/user-state/user.state';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventAction } from '../../../state/event-state/event.action';
 
 @Component({
   selector: 'app-login-page',
