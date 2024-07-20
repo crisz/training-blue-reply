@@ -32,7 +32,7 @@ export class RegistrationPageComponent {
 	}
 
   register(){
-		this.authService.register(this.registrationForm?.value).then(async res => {
+		this.authService.register(this.registrationForm?.value).then(res => {
       if (res) {
         this._snackBar.open("Registration is Success", "OK");
 				this.router.navigateByUrl('/login-page', { replaceUrl: true });
@@ -44,7 +44,7 @@ export class RegistrationPageComponent {
           }
         });
       }
-    }).catch(async error => {
+    }).catch(error => {
       this.dialog.open(DialogModalComponent, {
         data:{
           title:"Errore",
