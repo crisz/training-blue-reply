@@ -14,6 +14,8 @@ import { EventAction } from '../../../state/event-state/event.action';
 import { EventObj } from '../../models/event';
 import { EventState } from '../../../state/event-state/event.state';
 import { DialogService } from '../../services/dialog.service';
+import { AddEventModalComponent } from '../../modal/add-event-modal/add-event-modal.component';
+
 
 @Component({
   selector: 'app-event-list',
@@ -28,6 +30,8 @@ export class EventListComponent {
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined; // ritorna il correlation id
   @SelectSnapshot(EventState.getEventData) public eventDataList: EventObj[] | undefined; // ritorna il correlation id
   
+  readonly dialog = inject(MatDialog);
+
   constructor(private router: Router, private httpClient: HttpClient,private store: Store, private eventService: EventsService,private dialogService: DialogService){
 
   }
@@ -51,6 +55,11 @@ export class EventListComponent {
 
   goToLoginPage(){
     this.router.navigate(['/login-page']);
+  }
+
+  openModalAdd(){
+    this.eventService.createEvent();
+    this.dialog.open(AddEventModalComponent);
   }
 }
 
