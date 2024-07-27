@@ -4,8 +4,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-registration-page',
@@ -17,9 +17,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class RegistrationPageComponent {
 
   registrationForm: FormGroup = new FormGroup({});
-  readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder,private router: Router,private authService: AuthenticationService, private _snackBar: MatSnackBar){
+  constructor(private fb: FormBuilder,private router: Router,private authService: AuthenticationService, private _snackBar: MatSnackBar,private dialogService: DialogService){
 
   }
 
@@ -37,20 +36,10 @@ export class RegistrationPageComponent {
         this._snackBar.open("Registration is Success", "OK");
 				this.router.navigateByUrl('/login-page', { replaceUrl: true });
       } else {
-				this.dialog.open(DialogModalComponent, {
-          data:{
-            title:"Errore",
-            subTitle:"Errore durante il processo di login"
-          }
-        });
+        this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");
       }
     }).catch(error => {
-      this.dialog.open(DialogModalComponent, {
-        data:{
-          title:"Errore",
-          subtitle:"Errore durante il processo di login"
-        }
-      });
+      this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");
       });
     ;
 }

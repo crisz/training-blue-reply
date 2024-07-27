@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from '../../services/dialog.service';
 
 describe('RegistrationPageComponent', () => {
   let component: RegistrationPageComponent;
@@ -17,7 +18,7 @@ describe('RegistrationPageComponent', () => {
   let authServiceMock: any;
   let routerMock: any;
   let snackBarMock: any;
-  let dialogMock: any;
+  let dialogServiceMock: any;
 
   beforeEach(async () => {
 
@@ -34,8 +35,8 @@ describe('RegistrationPageComponent', () => {
       open: jest.fn()
     };
 
-    dialogMock = {
-      open: jest.fn()
+    dialogServiceMock = {
+      openDialogMessage: jest.fn()
     };
     
     await TestBed.configureTestingModule({
@@ -45,7 +46,7 @@ describe('RegistrationPageComponent', () => {
         { provide: AuthenticationService, useValue: authServiceMock },
         { provide: Router, useValue: routerMock },
         { provide: MatSnackBar, useValue: snackBarMock },
-        { provide: MatDialog, useValue: dialogMock }
+        { provide: DialogService, useValue: dialogServiceMock }
       ]
     })
     .compileComponents();
@@ -95,12 +96,7 @@ describe('RegistrationPageComponent', () => {
 
     await component.register();
     expect(authServiceMock.register).toHaveBeenCalledWith(component.registrationForm.value);
-    expect(dialogMock.open).toHaveBeenCalledWith(DialogModalComponent, {
-      data: {
-        title: 'Errore',
-        subTitle: 'Errore durante il processo di login'
-      }
-    });
+    expect(dialogServiceMock.openDialogMessage).toHaveBeenCalledWith("Errore","Errore durante il processo di login");
   });
 
   it('should open dialog on registration error', async () => {
@@ -114,12 +110,7 @@ describe('RegistrationPageComponent', () => {
 
     await component.register();
     expect(authServiceMock.register).toHaveBeenCalledWith(component.registrationForm.value);
-    expect(dialogMock.open).toHaveBeenCalledWith(DialogModalComponent, {
-      data: {
-        title: 'Errore',
-        subtitle: 'Errore durante il processo di login'
-      }
-    });
+    expect(dialogServiceMock.openDialogMessage).toHaveBeenCalledWith("Errore","Errore durante il processo di login");
   });
 
   it('should navigate to login page on goBack', () => {

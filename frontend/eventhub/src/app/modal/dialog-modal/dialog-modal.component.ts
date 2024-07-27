@@ -9,7 +9,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 
-interface DialogData {
+export interface DialogData {
   title: string;
   subtitle: string;
 }

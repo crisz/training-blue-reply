@@ -8,9 +8,9 @@ import {  Store } from '@ngxs/store';
 import { IUserState } from '../../models/user';
 import { UserState } from '../../../state/user-state/user.state';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventAction } from '../../../state/event-state/event.action';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-login-page',
@@ -28,7 +28,8 @@ export class LoginPageComponent {
 		private authService: AuthenticationService,
 		private router: Router,
 		private _snackBar : MatSnackBar,
-		private store : Store
+		private store : Store,
+		private dialogService: DialogService
 	) {
    
   }
@@ -49,21 +50,11 @@ export class LoginPageComponent {
 		this.store.dispatch(new UserAction.SetUserData({email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
 				this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
-		this.dialog.open(DialogModalComponent, {
-			data:{
-				title:"Errore",
-				subtitle:"Errore durante il processo di login"
-			}
-		});
+		this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");
       }
     })
     .catch(async error => {
-		this.dialog.open(DialogModalComponent, {
-			data:{
-				title:"Errore",
-				subtitle:"Errore durante il processo di login"
-			}
-		});
+		this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");
     });
 	}
 

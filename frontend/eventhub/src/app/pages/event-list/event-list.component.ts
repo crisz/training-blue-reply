@@ -8,12 +8,12 @@ import { NgxsSelectSnapshotModule, SelectSnapshot } from '@ngxs-labs/select-snap
 import { SharedModule } from '../../shared/shared.module';
 import { Store } from '@ngxs/store';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogModalComponent } from '../../modal/dialog-modal/dialog-modal.component';
 import { EventsService } from '../../services/events.service';
 import { MatListModule } from '@angular/material/list';
 import { EventAction } from '../../../state/event-state/event.action';
 import { EventObj } from '../../models/event';
 import { EventState } from '../../../state/event-state/event.state';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-event-list',
@@ -27,20 +27,14 @@ export class EventListComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined; // ritorna il correlation id
   @SelectSnapshot(EventState.getEventData) public eventDataList: EventObj[] | undefined; // ritorna il correlation id
-  readonly dialog = inject(MatDialog);
   
-  constructor(private router: Router, private httpClient: HttpClient,private store: Store, private eventService: EventsService){
+  constructor(private router: Router, private httpClient: HttpClient,private store: Store, private eventService: EventsService,private dialogService: DialogService){
 
   }
 
   ngOnInit(){
     if(!this.userData?.email){
-      this.dialog.open(DialogModalComponent, {
-        data:{
-          title:"Utente non loggato",
-          subtitle:"Fai la login"
-        }
-      });
+      this.dialogService.openDialogMessage("Utente non loggato","Fai la login");
       this.router.navigate(['/login-page']);
     }
     else{
@@ -52,12 +46,7 @@ export class EventListComponent {
   }
 
   openDescription(description:string){
-    this.dialog.open(DialogModalComponent, {
-			data:{
-				title: description,
-				subtitle:"La descrizione dell' "+description+""
-			}
-		});
+    this.dialogService.openDialogMessage(description,"La descrizione dell' "+description+"");
   }
 
   goToLoginPage(){
