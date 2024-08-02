@@ -13,7 +13,7 @@ export class EventsService {
     return firstValueFrom(this.httpClient.get('api/events'));
   }
   
-  createEvent():Promise<any>{
+  async createEvent():Promise<any>{
     //da capire come mandare questa richiesta
     const formData = new FormData();
     const data = {
@@ -24,8 +24,12 @@ export class EventsService {
     const HttpUploadOptions = {
       headers: new HttpHeaders({ "Content-Type": "multipart/form-data" })
     }
-    formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
-      formData.append('image', "ciasaosaasdsafdasfas");
+    formData.append('description' , 'ciao');
+    formData.append('title' , 'ciao');
+    formData.append('place', "ciao");
+    const result = await fetch("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==") ;
+    const blob = await result.blob();
+    formData.append('image', blob,'immagine.png');
     return firstValueFrom(this.httpClient.post('api/events', formData));
   }
 }
