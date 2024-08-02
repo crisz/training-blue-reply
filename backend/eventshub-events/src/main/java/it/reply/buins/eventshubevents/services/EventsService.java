@@ -3,6 +3,9 @@ package it.reply.buins.eventshubevents.services;
 import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
 import it.reply.buins.eventshubevents.dto.EventResponseDto;
 import it.reply.buins.eventshubevents.entities.EventEntity;
+import it.reply.buins.eventshubevents.entities.EventParticipant;
+import it.reply.buins.eventshubevents.entities.EventParticipantPk;
+import it.reply.buins.eventshubevents.repositories.EventParticipantRepository;
 import it.reply.buins.eventshubevents.repositories.EventsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
@@ -22,23 +26,29 @@ import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
 public class EventsService {
     private final EventsRepository repository;
 
-    @Autowired
-    public EventsService(EventsRepository repository) {
+    private final EventParticipantRepository participantRepository;
+
+    public EventsService(EventsRepository repository, EventParticipantRepository eventParticipantRepository) {
         this.repository = repository;
+        this.participantRepository = eventParticipantRepository;
     }
 
-    public List<EventEntity> getAllEvents() {
-        return this.repository.findAll();
+    public List<EventResponseDto> getAllEvents() {
+        return EventResponseDto.fromEntityList(this.repository.findAll());
     }
 
-    public List<EventEntity> getMyEvents(Long userId) {
-        return this.repository.findAllByUserId(userId);
+    public Optional<EventEntity> getEventById(Long id) {
+        return this.repository.findById(id);
+    }
+    public List<EventResponseDto> getMyEvents(Long userId) {
+        return EventResponseDto.fromEntityList(this.repository.findAllByUserId(userId));
     }
 
     public EventResponseDto createEvent(EventMultiPartPayloadDto eventFromFe, Long userId) {
         String imageUrl = uploadFile(eventFromFe.getImage());
         EventEntity eventEntity = eventFromFe.toEntity(imageUrl, userId);
-        return EventResponseDto.fromEntity(repository.save(eventEntity));
+        EventEntity responseEntity = repository.save(eventEntity);
+        return participateToEvent(responseEntity, userId);
     }
 
     private String uploadFile(MultipartFile file) {
@@ -64,5 +74,16 @@ public class EventsService {
         } catch (IOException e) {
             throw new RuntimeException("Could not upload file: " + e.getMessage());
         }
+    }
+
+    public EventResponseDto participateToEvent(EventEntity eventEntity, Long userId) {
+        List<EventParticipant> participants = eventEntity.getParticipants();
+        participants.add(new EventParticipant(new EventParticipantPk(eventEntity.getId(), userId), eventEntity));
+        return EventResponseDto.fromEntity(repository.save(eventEntity));
+    }
+
+    public List<EventResponseDto> getParticipatingEvents(Long userId) {
+        return EventResponseDto.fromEntityList(this.repository.findAllByParticipating(userId));
+
     }
 }

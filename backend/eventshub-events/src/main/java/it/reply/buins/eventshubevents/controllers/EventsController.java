@@ -3,8 +3,6 @@ package it.reply.buins.eventshubevents.controllers;
 import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
 import it.reply.buins.eventshubevents.dto.EventResponseDto;
 import it.reply.buins.eventshubevents.entities.EventEntity;
-import it.reply.buins.eventshubevents.exceptions.AuthException;
-import it.reply.buins.eventshubevents.models.AuthResponse;
 import it.reply.buins.eventshubevents.services.EventsService;
 import it.reply.buins.eventshubevents.utils.JwtUtils;
 import jakarta.servlet.ServletContext;
@@ -24,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 import static it.reply.buins.eventshubevents.utils.Constants.UPLOAD_FOLDER;
 
@@ -38,19 +37,28 @@ public class EventsController {
     private ServletContext servletContext;
 
     @GetMapping("/all")
-    public List<EventEntity> getAllEvents() {
+    public List<EventResponseDto> getAllEvents() {
         return this.eventsService.getAllEvents();
     }
 
     @GetMapping
-    public List<EventEntity> getMyEvents(
+    public List<EventResponseDto> getMyEvents(
             HttpServletRequest request
     ) {
         String token = getTokenFromCookies(request.getCookies());
         Long userId = JwtUtils.getUserIdFromToken(token);
         return this.eventsService.getMyEvents(userId);
-
     }
+
+    @GetMapping("/participating")
+    public List<EventResponseDto> getParticipatingEvents(
+            HttpServletRequest request
+    ) {
+        String token = getTokenFromCookies(request.getCookies());
+        Long userId = JwtUtils.getUserIdFromToken(token);
+        return this.eventsService.getParticipatingEvents(userId);
+    }
+
 
     @PostMapping
     public EventResponseDto postEvent(
@@ -64,6 +72,24 @@ public class EventsController {
         Long userId = JwtUtils.getUserIdFromToken(token);
 
         return eventsService.createEvent(event, userId);
+    }
+
+
+    @PostMapping("/{eventId}/participate")
+    public EventResponseDto participateToEvent(
+            HttpServletRequest request,
+            @PathVariable Long eventId
+    ) {
+        String token = getTokenFromCookies(request.getCookies());
+        Long userId = JwtUtils.getUserIdFromToken(token);
+
+        Optional<EventEntity> event = eventsService.getEventById(eventId);
+
+        if (event.isEmpty()) {
+            throw new RuntimeException("The event with id " + eventId + " does not exist");
+        }
+
+        return eventsService.participateToEvent(event.get(), userId);
     }
 
     @GetMapping("/image/{filename}")

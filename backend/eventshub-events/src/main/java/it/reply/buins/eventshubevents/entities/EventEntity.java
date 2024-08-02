@@ -3,6 +3,9 @@ package it.reply.buins.eventshubevents.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,4 +32,8 @@ public class EventEntity {
 
     @Column
     private Long userId;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column
+    private List<EventParticipant> participants = new LinkedList<>();
 }
