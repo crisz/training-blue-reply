@@ -1,12 +1,22 @@
+<mat-toolbar class="mbotton10">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Event list Page</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+  <div (click)="goToLoginPage()" class="exit-icon positionEnd"></div>
+</mat-toolbar>
   <div>BENVENUTO {{userData?.username}}</div>
-  <div (click)="goToLoginPage()" class="exit-icon"></div>
 <div class="primaryContent">
-        <mat-list role="list">
-            <mat-list-item (click)="openDescription('Item 1')" role="listitem">Item 1</mat-list-item>
+        <mat-list *ngFor="let item of eventDataList" role="list">
+            <mat-list-item (click)="openDescription('Item 1')" role="listitem">{{item.title}}</mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 2</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="openDescription('Item 2')" role="listitem">Item 3</mat-list-item>
-          </mat-list>
-          <button color="primary" mat-flat-button>Add mew Item</button>
+        </mat-list>
+          <button (click)="openModalAdd()" color="primary" mat-flat-button>Add mew Item</button>
 </div>

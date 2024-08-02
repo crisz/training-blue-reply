@@ -6,8 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 import { NgxsModule, Store } from '@ngxs/store';
-import { UserState } from '../../state/user.state';
+import { UserState } from '../../state/user-state/user.state';
 import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { EventState } from '../../state/event-state/event.state';
 
 @NgModule({
   declarations: [],
@@ -20,7 +23,7 @@ import {MatListModule} from '@angular/material/list';
     MatInputModule,
     MatListModule,
     MatFormFieldModule,
-    NgxsModule.forRoot([UserState]),
+    NgxsModule.forRoot([UserState,EventState]),
     NgxsSelectSnapshotModule
   ],
   exports: [
@@ -28,6 +31,9 @@ import {MatListModule} from '@angular/material/list';
     CommonModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatToolbarModule
+
   ]
 })
 export class SharedModule { }

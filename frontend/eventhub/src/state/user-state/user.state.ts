@@ -1,4 +1,4 @@
-import { IUserState, UserObj } from "../app/models/user";
+import { IUserState, UserObj } from "../../app/models/user";
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { UserAction } from "./user.action";
@@ -15,6 +15,7 @@ const DEFAULT_STATE: IUserState = {
 })
 @Injectable()
 export class UserState {
+  
     @Action(UserAction.SetUserData)
     public setUserData({ getState, setState }: StateContext<IUserState>,  { payload }: UserAction.SetUserData): any {
       setState(

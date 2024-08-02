@@ -1,4 +1,4 @@
-import { IUserState, UserObj } from "../app/models/user";
+import { IUserState, UserObj } from "../../app/models/user";
 
 const ACTION_PLACEHOLDER: string = "[User]";
 
