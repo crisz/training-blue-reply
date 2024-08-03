@@ -5,7 +5,8 @@ import { EventAction } from "./event.action";
 import { produce } from "immer";
 
 const DEFAULT_STATE: IEventState = {
-    eventDate:[]
+    eventDate:[],
+    myEvents:[]
 };
 
 @State<IEventState>({
@@ -24,9 +25,23 @@ export class EventState {
       );
     }
 
+    @Action(EventAction.SetMyAEventDataList)
+    public setMyAEventDataList({ getState, setState }: StateContext<IEventState>,  { payload }: EventAction.SetMyAEventDataList): any {
+      setState(
+        produce(getState(), draft => {
+          draft.myEvents = payload;
+        })
+      );
+    }
+
     @Selector()
     static getEventData(state: IEventState) {
       return state?.eventDate;
+    }
+
+    @Selector()
+    static getMyEventData(state: IEventState) {
+      return state?.myEvents;
     }
 }
 

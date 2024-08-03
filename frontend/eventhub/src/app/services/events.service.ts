@@ -1,16 +1,43 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { firstValueFrom } from 'rxjs';
+import { EventAction } from '../../state/event-state/event.action';
+import { EventObj } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private store: Store) { }
 
-  retrieveEvents(): Promise<any> {
-    return firstValueFrom(this.httpClient.get('api/events'));
+  retrieveAllEvents(): Promise<EventObj[]>  {
+    return firstValueFrom(this.httpClient.get('api/events/all')).then(
+      (res : any) => {
+        this.store.dispatch(new EventAction.SetEventDataList(res));
+        return res;
+      },
+      error => {
+        // Handle the error here if needed
+        console.error(error);
+        throw error;
+      }
+    );
+  }
+
+  retrieveMyEvents(): Promise<any> {
+    return firstValueFrom(this.httpClient.get('api/events')).then(
+      (res : any) => {
+        this.store.dispatch(new EventAction.SetMyAEventDataList(res));
+        return res;
+      },
+      error => {
+        // Handle the error here if needed
+        console.error(error);
+        throw error;
+      }
+    );
   }
   
   async createEvent():Promise<any>{

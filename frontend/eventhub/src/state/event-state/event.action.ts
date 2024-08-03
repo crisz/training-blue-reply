@@ -7,4 +7,9 @@ export namespace EventAction {
     public static readonly type: string = '${ACTION_PLACEHOLDER} Set Event Data List';
     constructor(public payload: EventObj[]) {}
   }
+
+  export class SetMyAEventDataList {
+    public static readonly type: string = '${ACTION_PLACEHOLDER} Set MyA Event Data List';
+    constructor(public payload: EventObj[]) {}
+  }
 }

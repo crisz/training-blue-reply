@@ -5,7 +5,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { SharedModule } from '../../shared/shared.module';
 import { UserAction } from '../../../state/user-state/user.action';
 import {  Store } from '@ngxs/store';
-import { IUserState } from '../../models/user';
+import { IUserState, UserObj } from '../../models/user';
 import { UserState } from '../../../state/user-state/user.state';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -47,8 +47,9 @@ export class LoginPageComponent {
 		//mock 
 		res.email = "miaemail@gmail.com" //dovrebbe restituirla il servizio
 		this._snackBar.open("Login is Success", "OK");
-		this.store.dispatch(new UserAction.SetUserData({email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
-		this.authService.setUserLogged(res.username);
+		let user: UserObj = {email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}
+		this.store.dispatch(new UserAction.SetUserData(user));
+		this.authService.setUserLogged(user);
 		this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
 		this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");

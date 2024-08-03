@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-
-const TOKEN_KEY = 'my-token';
+import { UserObj } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 
+
+
 export class AuthenticationService {
-	token = '';
   
   constructor(private httpClient: HttpClient) {
 	}
@@ -30,8 +30,13 @@ export class AuthenticationService {
     }));
   }
 
-  setUserLogged(user : string){
-    sessionStorage.setItem('user',user);
+  setUserLogged(user : UserObj){
+    sessionStorage.setItem('user',JSON.stringify(user));
+  }
+
+  getUserLogged():UserObj{
+    const userString = sessionStorage.getItem('user');
+    return userString ? JSON.parse(userString) : null;
   }
 
   isLoggedIn(): boolean {
