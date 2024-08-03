@@ -15,6 +15,8 @@ import { EventObj } from '../../models/event';
 import { EventState } from '../../../state/event-state/event.state';
 import { DialogService } from '../../services/dialog.service';
 import { AddEventModalComponent } from '../../modal/add-event-modal/add-event-modal.component';
+import { AuthenticationService } from '../../services/authentication.service';
+
 
 
 @Component({
@@ -32,12 +34,12 @@ export class EventListComponent {
   
   readonly dialog = inject(MatDialog);
 
-  constructor(private router: Router, private httpClient: HttpClient,private store: Store, private eventService: EventsService,private dialogService: DialogService){
+  constructor(private router: Router, private authService: AuthenticationService,private store: Store, private eventService: EventsService,private dialogService: DialogService){
 
   }
 
   ngOnInit(){
-    if(!this.userData?.email){
+    if(!this.authService.isLoggedIn()){
       this.dialogService.openDialogMessage("Utente non loggato","Fai la login");
       this.router.navigate(['/login-page']);
     }
@@ -54,6 +56,7 @@ export class EventListComponent {
   }
 
   goToLoginPage(){
+    this.authService.logout();
     this.router.navigate(['/login-page']);
   }
 

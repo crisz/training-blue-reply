@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MatDialog } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DialogService } from '../../services/dialog.service';
 

@@ -48,7 +48,8 @@ export class LoginPageComponent {
 		res.email = "miaemail@gmail.com" //dovrebbe restituirla il servizio
 		this._snackBar.open("Login is Success", "OK");
 		this.store.dispatch(new UserAction.SetUserData({email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}));
-				this.router.navigateByUrl('/events-list', { replaceUrl: true });
+		this.authService.setUserLogged(res.username);
+		this.router.navigateByUrl('/events-list', { replaceUrl: true });
       } else {
 		this.dialogService.openDialogMessage("Errore","Errore durante il processo di login");
       }

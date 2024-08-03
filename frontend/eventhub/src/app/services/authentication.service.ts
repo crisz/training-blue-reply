@@ -30,7 +30,19 @@ export class AuthenticationService {
     }));
   }
 
-	logout(): boolean {
-    return true;
-	}
+  setUserLogged(user : string){
+    sessionStorage.setItem('user',user);
+  }
+
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('user');
+  }
+
+  logout() {
+    sessionStorage.removeItem('user');
+  }
+  
+  resetSessionData(){
+    sessionStorage.clear();
+  }
 }
