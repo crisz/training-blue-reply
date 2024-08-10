@@ -1,4 +1,5 @@
 <div class="containerModal">
+  <div class="modal-title">AGGIUNGI IL TUO EVENTO</div>
     <form class="text-center" [formGroup]="newEventForm" novalidate>
       <div>
         <mat-form-field appearance="outline">
@@ -24,5 +25,6 @@
           <mat-error *ngIf="newEventForm.get('place')?.dirty && newEventForm.get('place')?.hasError('place')">Invalid place format</mat-error>
         </mat-form-field>
       </div>
+      <button class="mbotton10" (click)="createEvent()" mat-raised-button color="primary" type="submit" [disabled]="newEventForm.invalid">Create</button>
     </form>
   </div>

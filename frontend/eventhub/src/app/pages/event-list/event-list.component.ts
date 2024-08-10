@@ -75,8 +75,12 @@ export class EventListComponent {
   }
 
   openModalAdd(){
-    this.eventService.createEvent();
-    this.dialog.open(AddEventModalComponent);
+    this.dialog.open(AddEventModalComponent).afterClosed().subscribe(res =>{
+      if(res.success){
+        this.reloadingMyEvents();
+        this.eventService.retrieveAllEvents();
+      }
+    });
   }
 }
 

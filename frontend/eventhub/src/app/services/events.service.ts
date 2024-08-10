@@ -8,6 +8,7 @@ import { EventObj } from '../models/event';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EventsService {
 
   constructor(private httpClient: HttpClient,private store: Store) { }
@@ -40,23 +41,41 @@ export class EventsService {
     );
   }
   
-  async createEvent():Promise<any>{
-    //da capire come mandare questa richiesta
+  async createEvent(event: EventObj): Promise<any> {
+    const description = event.description ?? '';
+    const title = event.title ?? '';
+    const place = event.place ?? '';
+
     const formData = new FormData();
-    const data = {
-      description: "ciao",
-      place: "ciao",
-      title: "cioa"
-    };
-    const HttpUploadOptions = {
-      headers: new HttpHeaders({ "Content-Type": "multipart/form-data" })
+    formData.append('description', description);
+    formData.append('title', title);
+    formData.append('place', place);
+
+    try {
+        const result = await fetch(event.imageUrl || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='); // Usa una URL predefinita se manca
+        if (!result.ok) {
+            throw new Error('Failed to fetch image');
+        }
+        const blob = await result.blob();
+        formData.append('image', blob, 'image.png');
+    } catch (error) {
+        console.error('Error fetching image:', error);
     }
-    formData.append('description' , 'ciao');
-    formData.append('title' , 'ciao');
-    formData.append('place', "ciao");
-    const result = await fetch("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==") ;
-    const blob = await result.blob();
-    formData.append('image', blob,'immagine.png');
-    return firstValueFrom(this.httpClient.post('api/events', formData));
+
+  try {
+      const response = await fetch('api/events', {
+          method: 'POST',
+          body: formData,
+      });
+      
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      
+      return await response.json();
+  } catch (error) {
+      console.error('Error creating event:', error);
+      throw error;
   }
+}
 }
