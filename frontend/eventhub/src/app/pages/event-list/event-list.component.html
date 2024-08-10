@@ -12,27 +12,57 @@
   </button>
   <div (click)="goToLoginPage()" class="exit-icon positionEnd"></div>
 </mat-toolbar>
-  <div>BENVENUTO {{userData?.username}}</div>
-<div class="primaryContent">
-        <div class="flex">
-          <div>TUTTI GLI EVENTI</div>
-          <div (click)="reloadingEvents()"  class="reload-icon"></div>
-        </div>
-        <mat-list *ngFor="let item of eventDataList" role="list">
-            <mat-list-item (click)="openDescription('Item 1')" role="listitem">{{item.title}}</mat-list-item>
-            <mat-divider></mat-divider>
-        </mat-list>
-        <div *ngIf="eventDataList?.length == 0">Non ci sono eventi</div>
-</div>
-<div class="primaryContent">
-  <div class="flex">
-    <div>I MIEI EVENTI</div>
-    <div (click)="reloadingMyEvents()"  class="reload-icon"></div>
-  </div>
-  <mat-list *ngFor="let item of eventMyDataList" role="list">
-      <mat-list-item (click)="openDescription('Item 1')" role="listitem">{{item.title}}</mat-list-item>
-      <mat-divider></mat-divider>
-  </mat-list>
-  <div *ngIf="eventMyDataList?.length == 0">Non ci sono eventi</div>
-    <button (click)="openModalAdd()" color="primary" mat-flat-button>Add mew Item</button>
-</div>
+
+<div>BENVENUTO {{userData?.username}}</div>
+
+<mat-tab-group>
+  <mat-tab label="Tutti gli Eventi">
+    <div class="primaryContent">
+      <div class="flex">
+        <div class="section-title">TUTTI GLI EVENTI</div>
+        <div (click)="reloadingEvents()" class="reload-icon"></div>
+      </div>
+
+      <mat-list *ngIf="eventDataList && eventDataList.length > 0" role="list" class="event-list">
+        <mat-list-item *ngFor="let item of eventDataList" 
+                       (click)="openDescription(item.description || '')" role="listitem">
+          <mat-icon>event</mat-icon>
+          <div class="event-details">
+            <h3>{{item.title}}</h3>
+            <p *ngIf="item.description">{{item.description | slice:0:100}}...</p>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+
+      <div *ngIf="eventDataList && eventDataList.length === 0" class="no-events">Non ci sono eventi</div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="I Miei Eventi">
+    <div class="primaryContent">
+      <div class="flex">
+        <div class="section-title">I MIEI EVENTI</div>
+        <div (click)="reloadingMyEvents()" class="reload-icon"></div>
+      </div>
+
+      <mat-list *ngIf="eventMyDataList && eventMyDataList.length > 0" role="list" class="event-list">
+        <mat-list-item *ngFor="let item of eventMyDataList" 
+                       (click)="openDescription(item.description || '')" role="listitem">
+          <mat-icon>event</mat-icon>
+          <div class="event-details">
+            <h3>{{item.title}}</h3>
+            <p *ngIf="item.description">{{item.description | slice:0:100}}...</p>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+
+      <div *ngIf="eventMyDataList && eventMyDataList.length === 0" class="no-events">Non ci sono eventi</div>
+
+      <div class="add-button-container">
+        <button (click)="openModalAdd()" color="primary" mat-flat-button>Add new Item</button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

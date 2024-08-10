@@ -1,13 +1,96 @@
-:host{
-    .positionEnd{
-        position: absolute;
-        right: 20px;
+:host {
+    .positionEnd {
+      position: absolute;
+      right: 20px;
     }
-    .primaryContent{
-        flex-direction: column;
+  
+    .primaryContent {
+      flex-direction: column;
+      margin-bottom: 60px; // Spazio extra per il pulsante in basso
     }
-    .reload-icon{
-        width: 30px;
-        height: 30px;
+  
+    .reload-icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
     }
-}
+  
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    .event-list {
+      .mat-list-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #f9f9f9;
+        cursor: pointer;
+        transition: background 0.3s ease;
+  
+        &:hover {
+          background: #e0e0e0;
+        }
+  
+        mat-icon {
+          margin-right: 16px;
+          color: #1976d2; // Color for event icon
+        }
+  
+        .event-details {
+          flex: 1;
+  
+          h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+          }
+  
+          p {
+            margin: 5px 0 0;
+            color: #555;
+            font-size: 0.9rem;
+          }
+        }
+      }
+  
+      mat-divider {
+        margin: 0;
+      }
+    }
+  
+    .no-events {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #888;
+      margin-top: 20px;
+    }
+  
+    .add-button-container {
+      position: fixed;
+      bottom: 20px;
+      width: calc(100% - 40px); // Adjust width for padding
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+  
+    button[color="primary"] {
+      background-color: #1976d2;
+      color: #fff;
+      border-radius: 24px;
+      padding: 10px 20px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+      &:hover {
+        background-color: #155a9c;
+      }
+    }
+  }
+  
