@@ -64,8 +64,8 @@ export class EventListComponent {
     this.eventService.retrieveAllEvents();
   }
 
-  openDescription(description: string) {
-    this.dialogService.openDialogMessage(description, "La descrizione dell' " + description);
+  openDescription(event: EventObj) {
+    this.dialogService.openDialogMessage(event.title,event.description);
   }
 
   goToLoginPage() {
@@ -79,5 +79,17 @@ export class EventListComponent {
         this.loadEvents();
       }
     });
+  }
+
+  isMyEvent(item : EventObj){
+    let myEvent = this.eventMyDataList?.find(elem => {
+      return elem.id == item.id;
+    })
+    if(myEvent){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

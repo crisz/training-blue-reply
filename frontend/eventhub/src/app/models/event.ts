@@ -7,7 +7,7 @@ export interface IEventState {
     id:string | null,
     place:string | null,
     imageUrl:string | null,
-    title:string | null,
-    description:string | null,
+    title:string,
+    description:string,
     participantIds: []
   }

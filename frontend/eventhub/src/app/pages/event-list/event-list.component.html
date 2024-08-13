@@ -4,6 +4,7 @@
   </button>
   <span>Event list Page</span>
   <span class="example-spacer"></span>
+  <div>BENVENUTO {{userData?.username}}</div>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
@@ -13,23 +14,22 @@
   <div (click)="goToLoginPage()" class="exit-icon positionEnd"></div>
 </mat-toolbar>
 
-<div>BENVENUTO {{userData?.username}}</div>
-
 <mat-tab-group>
   <mat-tab label="Tutti gli Eventi">
     <div class="primaryContent">
-      <div class="flex">
+      <div class="flex centered">
         <div class="section-title">TUTTI GLI EVENTI</div>
         <div (click)="reloadingEvents()" class="reload-icon"></div>
       </div>
 
       <mat-list *ngIf="eventDataList && eventDataList.length > 0" role="list" class="event-list">
-        <mat-list-item *ngFor="let item of eventDataList" 
-                       (click)="openDescription(item.description || '')" role="listitem">
-          <mat-icon>event</mat-icon>
-          <div class="event-details">
-            <h3>{{item.title}}</h3>
-            <p *ngIf="item.description">{{item.description | slice:0:100}}...</p>
+        <mat-list-item class="box-event" *ngFor="let item of eventDataList" 
+                       (click)="openDescription(item)" role="listitem">
+            <div class="event-details">
+            <div class="w20">Nome Evento: {{item.title}}</div>
+            <div class="w20">Luogo: {{item.place}}</div>
+            <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
+            <div *ngIf="isMyEvent(item)"  class="edit-icon positionModifyIcon"></div>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>
@@ -41,18 +41,19 @@
 
   <mat-tab label="I Miei Eventi">
     <div class="primaryContent">
-      <div class="flex">
+      <div class="flex centered">
         <div class="section-title">I MIEI EVENTI</div>
         <div (click)="reloadingMyEvents()" class="reload-icon"></div>
       </div>
 
       <mat-list *ngIf="eventMyDataList && eventMyDataList.length > 0" role="list" class="event-list">
-        <mat-list-item *ngFor="let item of eventMyDataList" 
-                       (click)="openDescription(item.description || '')" role="listitem">
-          <mat-icon>event</mat-icon>
+        <mat-list-item class="box-event" *ngFor="let item of eventMyDataList" 
+                       (click)="openDescription(item)" role="listitem">
           <div class="event-details">
-            <h3>{{item.title}}</h3>
-            <p *ngIf="item.description">{{item.description | slice:0:100}}...</p>
+            <div class="w20">Nome Evento: {{item.title}}</div>
+            <div class="w20">Luogo: {{item.place}}</div>
+            <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
+            <div *ngIf="isMyEvent(item)" class="edit-icon positionModifyIcon"></div>
           </div>
         </mat-list-item>
         <mat-divider></mat-divider>
