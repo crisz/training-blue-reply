@@ -3,6 +3,7 @@ export interface IUserState {
   }
 
   export interface UserObj {
+    id:number | null,
     email:string | null,
     password:string | null,
     username:string | null

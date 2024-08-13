@@ -17,6 +17,7 @@ import { AddEventModalComponent } from '../../modal/add-event-modal/add-event-mo
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserAction } from '../../../state/user-state/user.action';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-event-list',
@@ -34,7 +35,7 @@ export class EventListComponent {
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private router: Router, private authService: AuthenticationService, private store: Store, private eventService: EventsService, private dialogService: DialogService) {}
+  constructor(private router: Router, private authService: AuthenticationService, private store: Store, private eventService: EventsService, private dialogService: DialogService, private _snackBar : MatSnackBar) {}
 
   ngOnInit() {
     if (!this.authService.isLoggedIn()) {
@@ -42,7 +43,7 @@ export class EventListComponent {
       this.router.navigate(['/login-page']);
     } else {
       const user = this.authService.getUserLogged();
-      this.store.dispatch(new UserAction.SetUserData({ email: user.email, password: user.password, username: user.username }));
+      this.store.dispatch(new UserAction.SetUserData({id:user.id, email: user.email, password: user.password, username: user.username }));
       this.loadEvents();
     }
   }
@@ -84,6 +85,30 @@ export class EventListComponent {
   isMyEvent(item : EventObj){
     let myEvent = this.eventMyDataList?.find(elem => {
       return elem.id == item.id;
+    })
+    if(myEvent){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  partecipa(item : EventObj){
+    if(!this.isUserIscritto(item)){
+      this.eventService.partecipaEvent(item).then(res =>{
+        if(res){
+          this._snackBar.open("Ti sei inscritto all'evento "+item.title+"", "OK");
+          this.reloadingEvents();
+        }
+      });
+    }
+  }
+
+  isUserIscritto(item : EventObj){
+
+    let myEvent = item.participantIds?.find(elem => {
+      return elem == this.userData?.id;
     })
     if(myEvent){
       return true;

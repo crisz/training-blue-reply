@@ -28,7 +28,8 @@
             <div class="event-details">
             <div class="w20">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>
-            <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
+            <div class="w50">Numero Partecipanti: {{item.participantIds.length}}</div>
+            <div *ngIf="!isMyEvent(item)" (click)="partecipa(item)" class="w20">{{isUserIscritto(item)? "Iscritto": "Iscriviti"}}</div>
             <div *ngIf="isMyEvent(item)"  class="edit-icon positionModifyIcon"></div>
           </div>
         </mat-list-item>

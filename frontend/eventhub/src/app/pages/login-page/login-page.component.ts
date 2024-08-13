@@ -47,7 +47,7 @@ export class LoginPageComponent {
 		//mock 
 		res.email = "miaemail@gmail.com" //dovrebbe restituirla il servizio
 		this._snackBar.open("Login is Success", "OK");
-		let user: UserObj = {email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}
+		let user: UserObj = {id:res.id, email: res.email, password :this.loginForm?.value.password, username :this.loginForm?.value.username}
 		this.store.dispatch(new UserAction.SetUserData(user));
 		this.authService.setUserLogged(user);
 		this.router.navigateByUrl('/events-list', { replaceUrl: true });

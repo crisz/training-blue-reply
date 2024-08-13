@@ -40,6 +40,24 @@ export class EventsService {
       }
     );
   }
+
+  async partecipaEvent(event: EventObj): Promise<any>{
+    let eventId = event.id;
+    try {
+      const response = await fetch('api/events/'+eventId+'/participate', {
+          method: 'POST'
+      });
+      
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      
+      return await response.json();
+  } catch (error) {
+      console.error('Error creating event:', error);
+      throw error;
+  }
+  }
   
   async createEvent(event: EventObj): Promise<any> {
     const description = event.description ?? '';

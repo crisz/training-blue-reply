@@ -5,7 +5,7 @@ import { UserAction } from "./user.action";
 import { produce } from "immer";
 
 const DEFAULT_STATE: IUserState = {
-    userDate:{ email:null,password:null,username:null
+    userDate:{id:null, email:null,password:null,username:null
  }
 };
 
