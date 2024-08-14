@@ -24,7 +24,7 @@
 
       <mat-list *ngIf="eventDataList && eventDataList.length > 0" role="list" class="event-list">
         <mat-list-item class="box-event" *ngFor="let item of eventDataList" 
-                       (click)="openDescription(item)" role="listitem">
+                       (click)="openDetailModal(item)" role="listitem">
             <div class="event-details">
             <div class="w50">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>
@@ -49,7 +49,7 @@
 
       <mat-list *ngIf="eventMyDataList && eventMyDataList.length > 0" role="list" class="event-list">
         <mat-list-item class="box-event" *ngFor="let item of eventMyDataList" 
-                       (click)="openDescription(item)" role="listitem">
+                       (click)="openDetailModal(item)" role="listitem">
           <div class="event-details">
             <div class="w50">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>

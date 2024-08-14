@@ -18,6 +18,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { UserAction } from '../../../state/user-state/user.action';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventDetailModalComponent } from '../../modal/event-detail-modal/event-detail-modal.component';
 
 @Component({
   selector: 'app-event-list',
@@ -65,8 +66,12 @@ export class EventListComponent {
     this.eventService.retrieveAllEvents();
   }
 
-  openDescription(event: EventObj) {
-    this.dialogService.openDialogMessage(event.title,event.description);
+  openDetailModal(event: EventObj) {
+    this.dialog.open(EventDetailModalComponent,{data:{event}}).afterClosed().subscribe(res => {
+      if (res.success) {
+        this.loadEvents();
+      }
+    });
   }
 
   goToLoginPage() {

@@ -59,7 +59,11 @@ export class AddEventModalComponent implements OnInit {
       eventData.append('description', this.newEventForm.get('description')?.value);
       eventData.append('place', this.newEventForm.get('place')?.value);
       if (this.selectedFile) {
-        eventData.append('image', this.selectedFile,this.selectedFile.name);
+        const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile);
+         // Convert File to Blob
+        const blob = new Blob([this.selectedFile], { type: this.selectedFile.type });
+        eventData.append('image', blob,this.selectedFile.name);
       }
       this.eventService.createEvent(eventData)
         .then(response => {

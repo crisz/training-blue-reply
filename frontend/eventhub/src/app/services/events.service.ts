@@ -76,4 +76,25 @@ export class EventsService {
       throw error;
   }
 }
+
+getEventImage(imageid: string): Promise<Blob>  {
+  const headers = new HttpHeaders({
+    'Accept': 'image/svg+xml'
+  });
+  return firstValueFrom(this.httpClient.get('api/events/image/'+imageid+'',{ headers, responseType: 'blob' })).then(
+    (res : any) => {
+      //res = this.convertSvgToBase64(res);
+      return res;
+    },
+    error => {
+      // Handle the error here if needed
+      console.error(error);
+      throw error;
+    }
+  );
+}
+
+convertSvgToBase64(svg: string): string{
+  return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+}
 }

@@ -1,0 +1,16 @@
+<div class="containerModal">
+    <div class="modal-title">DETTAGLIO EVENTO</div>
+    <mat-card>
+        <img mat-card-image [src]="imageEvent" alt="Event Image">
+        <mat-card-title>{{event?.title}}</mat-card-title>
+        <mat-card-subtitle>Luogo: {{event?.place}}</mat-card-subtitle>
+        <mat-card-content>
+          <p>{{event?.description}}</p>
+          <p><strong>Number of Participants:</strong> {{event?.participantIds?.length}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Partecipa</button>
+        </mat-card-actions>
+      </mat-card>
+</div>
+  
