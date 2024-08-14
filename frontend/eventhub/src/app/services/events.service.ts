@@ -59,31 +59,11 @@ export class EventsService {
   }
   }
   
-  async createEvent(event: EventObj): Promise<any> {
-    const description = event.description ?? '';
-    const title = event.title ?? '';
-    const place = event.place ?? '';
-
-    const formData = new FormData();
-    formData.append('description', description);
-    formData.append('title', title);
-    formData.append('place', place);
-
-    try {
-        const result = await fetch(event.imageUrl || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='); // Usa una URL predefinita se manca
-        if (!result.ok) {
-            throw new Error('Failed to fetch image');
-        }
-        const blob = await result.blob();
-        formData.append('image', blob, 'image.png');
-    } catch (error) {
-        console.error('Error fetching image:', error);
-    }
-
+  async createEvent(event: FormData): Promise<any> {
   try {
       const response = await fetch('api/events', {
           method: 'POST',
-          body: formData,
+          body: event,
       });
       
       if (!response.ok) {

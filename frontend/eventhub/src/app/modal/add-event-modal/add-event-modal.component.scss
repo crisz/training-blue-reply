@@ -10,4 +10,18 @@
         border-bottom: 2px solid #ccc;
         margin-bottom: 20px;
     }
+    .upload-box {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-bottom: 10px;;
+      }
+      
+      .upload-box p {
+        margin: 0;
+        color: #aaa;
+      }
+      
 }
