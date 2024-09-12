@@ -2,11 +2,11 @@ theme: jekyll-theme-minimal
 nav:
   - title: "Home"
     url: /
-  - title: "About"
-    url: /about/
-  - title: "FAQ"
-    url: /faq/
-  - title: "Contact"
-    url: /contact/
+  - title: "Backend"
+    url: /backend/
+  - title: "Esercizio 1"
+    url: /backend/esercizio1
+  - title: "Esercizio 2"
+    url: /backend/esercizio2
 title: Formazione Blue Reply
 description: Esercizi per la formazione neo-assunti Blue Reply
