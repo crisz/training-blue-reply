@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /backend/esercizio1
+permalink: /backend
 title: Backend
 nav_order: 1
 ---
