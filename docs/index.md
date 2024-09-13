@@ -1,5 +1,5 @@
 ---
 layout: default
-title: Home
+title: Introduzione
 ---
-Introduzione 2
+Introduzione
