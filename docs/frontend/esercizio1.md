@@ -6,6 +6,7 @@ parent: Frontend
 nav_order: 1
 ---
 # Esercizio 1
+
 ## Developer tools
 In questo esercizio bla bla bla bla.
 
