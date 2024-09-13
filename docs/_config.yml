@@ -1,4 +1,24 @@
+title: Formazione Blue Reply
+description: Esercizi per la formazione neo-assunti Blue Reply
 theme: just-the-docs
+plugins:
+  - jekyll-remote-theme
+remote_theme: pmarsceill/just-the-docs
+
+# GitHub Pages settings
+github:
+  production: true
+
+# Base URL (change if your site is hosted at a subpath)
+baseurl: ""
+
+# URL of your site
+url: "https://crisz.github.io/training-blue-reply/"
+
+# Navigation
+just_the_docs:
+  nav_position: left
+
 nav:
   - title: "Home"
     url: /
@@ -8,5 +28,3 @@ nav:
     url: /backend/esercizio1
   - title: "Esercizio 2"
     url: /backend/esercizio2
-title: Formazione Blue Reply
-description: Esercizi per la formazione neo-assunti Blue Reply
