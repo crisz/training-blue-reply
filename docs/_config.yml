@@ -12,6 +12,7 @@ github:
 baseurl: ""
 
 # URL of your site
+baseurl: "/training-blue-reply"
 url: "https://crisz.github.io/training-blue-reply/"
 
 # Navigation
