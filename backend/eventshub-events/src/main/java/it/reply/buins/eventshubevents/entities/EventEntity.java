@@ -3,6 +3,7 @@ package it.reply.buins.eventshubevents.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +33,12 @@ public class EventEntity {
 
     @Column
     private Long userId;
+
+    @Column
+    private Date startDate;
+
+    @Column
+    private Date endDate;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column
