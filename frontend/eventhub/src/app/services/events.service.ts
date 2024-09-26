@@ -16,7 +16,6 @@ export class EventsService {
   retrieveAllEvents(): Promise<Event[]>  {
     return firstValueFrom(this.httpClient.get('api/events/all')).then(
       (res : any) => {
-        this.store.dispatch(new EventAction.SetEventDataList(res));
         return res;
       },
       error => {
@@ -30,7 +29,6 @@ export class EventsService {
   retrieveMyEvents(): Promise<any> {
     return firstValueFrom(this.httpClient.get('api/events')).then(
       (res : any) => {
-        this.store.dispatch(new EventAction.SetMyAEventDataList(res));
         return res;
       },
       error => {

@@ -50,16 +50,14 @@ export class EventListComponent {
   }
 
   loadEvents() {
-    this.eventService.retrieveAllEvents().then(res => {
-      this.store.dispatch(new EventAction.SetEventDataList(res));
-    });
-    this.eventService.retrieveMyEvents().then(res => {
-      this.store.dispatch(new EventAction.SetMyAEventDataList(res));
-    });
+    this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
+      console.log('Azione FetchEvents dispatchata');
+    });;
+    this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
   reloadingMyEvents() {
-    this.eventService.retrieveMyEvents();
+    this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
   isUserIscritto(item : Event){
@@ -76,7 +74,7 @@ export class EventListComponent {
   }
 
   reloadingEvents() {
-    this.eventService.retrieveAllEvents();
+    this.store.dispatch(new EventAction.FetchEvents)
   }
 
   openDetailModal(event: Event) {

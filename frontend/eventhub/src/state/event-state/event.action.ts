@@ -12,4 +12,14 @@ export namespace EventAction {
     public static readonly type: string = '${ACTION_PLACEHOLDER} Set MyA Event Data List';
     constructor(public payload: Event[]) {}
   }
+
+  export class FetchEvents {
+    static readonly type = '[Event] Fetch Events';
+    constructor() {}
+  }
+
+  export class FetchMyEvents {
+    static readonly type = '[Event] Fetch my Events';
+    constructor() {}
+  }
 }
