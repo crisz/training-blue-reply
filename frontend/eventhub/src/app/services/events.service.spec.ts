@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { EventsService } from './events.service';
 import { Store } from '@ngxs/store';
 import { EventAction } from '../../state/event-state/event.action';
-import { EventObj } from '../models/event';
+import { Event } from '../models/event';
 
 describe('EventsService', () => {
   let service: EventsService;
@@ -37,7 +37,7 @@ describe('EventsService', () => {
   });
 
   it('should retrieve all events and dispatch action', async () => {
-    const mockEvents: EventObj[] = [{ id: "1", title: 'Event 1', description: 'Description 1', place: 'Place 1',imageUrl:"cc",participantIds:[] }];
+    const mockEvents: Event[] = [{ id: "1", title: 'Event 1', description: 'Description 1', place: 'Place 1',imageUrl:"cc",participantIds:[] }];
     
     service.retrieveAllEvents().then(events => {
       expect(events).toEqual(mockEvents);
@@ -50,7 +50,7 @@ describe('EventsService', () => {
   });
 
   it('should retrieve my events and dispatch action', async () => {
-    const mockEvents: EventObj[] = [{ id: "1", title: 'My Event 1', description: 'My Description 1', place: 'My Place 1' ,imageUrl:"cc",participantIds:[]}];
+    const mockEvents: Event[] = [{ id: "1", title: 'My Event 1', description: 'My Description 1', place: 'My Place 1' ,imageUrl:"cc",participantIds:[]}];
     
     service.retrieveMyEvents().then(events => {
       expect(events).toEqual(mockEvents);

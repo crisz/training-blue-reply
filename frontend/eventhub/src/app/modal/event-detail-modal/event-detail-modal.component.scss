@@ -2,6 +2,8 @@
 
     .containerModal{
         margin: 20px;
+        overflow-y: scroll;
+        max-height: 900px;
     }
     .modal-title {
         font-size: 24px;

@@ -9,7 +9,7 @@
           <p><strong>Number of Participants:</strong> {{event?.participantIds?.length}}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary">Partecipa</button>
+          <button (click)="partecipa(event!)" mat-raised-button color="primary">Partecipa</button>
         </mat-card-actions>
       </mat-card>
 </div>

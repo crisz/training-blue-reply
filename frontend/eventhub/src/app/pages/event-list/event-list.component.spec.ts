@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { EventsService } from '../../services/events.service';
 import { DialogService } from '../../services/dialog.service';
 import { UserObj } from '../../models/user';
-import { EventObj } from '../../models/event';
+import { Event } from '../../models/event';
 import { AddEventModalComponent } from '../../modal/add-event-modal/add-event-modal.component';
 
 describe('EventListComponent', () => {
