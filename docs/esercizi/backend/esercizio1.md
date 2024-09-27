@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Esercizio 1
-permalink: /backend/esercizio1
+title:  Ex1 ~ abcde
+permalink: /esercizi/backend/esercizio1
 parent: Backend
 nav_order: 1
 ---

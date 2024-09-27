@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Ex1 ~ Developer tools
-permalink: /frontend/esercizio1
+permalink: /esercizi/frontend/esercizio1
 parent: Frontend
 nav_order: 1
 ---

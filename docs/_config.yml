@@ -18,13 +18,3 @@ url: "https://crisz.github.io/training-blue-reply/"
 # Navigation
 just_the_docs:
   nav_position: left
-
-nav:
-  - title: "Home"
-    url: /
-  - title: "Backend"
-    url: /backend/
-  - title: "Esercizio 1"
-    url: /backend/esercizio1
-  - title: "Esercizio 2"
-    url: /backend/esercizio2
