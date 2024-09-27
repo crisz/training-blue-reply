@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { firstValueFrom } from 'rxjs';
 import { EventAction } from '../../state/event-state/event.action';
-import { EventObj } from '../models/event';
+import { Event } from '../models/event';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,9 @@ export class EventsService {
 
   constructor(private httpClient: HttpClient,private store: Store) { }
 
-  retrieveAllEvents(): Promise<EventObj[]>  {
+  retrieveAllEvents(): Promise<Event[]>  {
     return firstValueFrom(this.httpClient.get('api/events/all')).then(
       (res : any) => {
-        this.store.dispatch(new EventAction.SetEventDataList(res));
         return res;
       },
       error => {
@@ -30,7 +29,6 @@ export class EventsService {
   retrieveMyEvents(): Promise<any> {
     return firstValueFrom(this.httpClient.get('api/events')).then(
       (res : any) => {
-        this.store.dispatch(new EventAction.SetMyAEventDataList(res));
         return res;
       },
       error => {
@@ -41,7 +39,7 @@ export class EventsService {
     );
   }
 
-  async partecipaEvent(event: EventObj): Promise<any>{
+  async partecipaEvent(event: Event): Promise<any>{
     let eventId = event.id;
     try {
       const response = await fetch('api/events/'+eventId+'/participate', {

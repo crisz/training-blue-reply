@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EventsService } from '../../services/events.service';
 import { MatListModule } from '@angular/material/list';
 import { EventAction } from '../../../state/event-state/event.action';
-import { EventObj } from '../../models/event';
+import { Event } from '../../models/event';
 import { EventState } from '../../../state/event-state/event.state';
 import { DialogService } from '../../services/dialog.service';
 import { AddEventModalComponent } from '../../modal/add-event-modal/add-event-modal.component';
@@ -31,8 +31,8 @@ import { EventDetailModalComponent } from '../../modal/event-detail-modal/event-
 export class EventListComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined;
-  @SelectSnapshot(EventState.getEventData) public eventDataList: EventObj[] | undefined;
-  @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: EventObj[] | undefined;
+  @SelectSnapshot(EventState.getEventData) public eventDataList: Event[] | undefined;
+  @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
 
   readonly dialog = inject(MatDialog);
 
@@ -50,25 +50,36 @@ export class EventListComponent {
   }
 
   loadEvents() {
-    this.eventService.retrieveAllEvents().then(res => {
-      this.store.dispatch(new EventAction.SetEventDataList(res));
-    });
-    this.eventService.retrieveMyEvents().then(res => {
-      this.store.dispatch(new EventAction.SetMyAEventDataList(res));
-    });
+    this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
+      console.log('Azione FetchEvents dispatchata');
+    });;
+    this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
   reloadingMyEvents() {
-    this.eventService.retrieveMyEvents();
+    this.store.dispatch(new EventAction.FetchMyEvents);
+  }
+
+  isUserIscritto(item : Event){
+
+    let myEvent = item.participantIds?.find(elem => {
+      return elem == this.userData?.id;
+    })
+    if(myEvent){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   reloadingEvents() {
-    this.eventService.retrieveAllEvents();
+    this.store.dispatch(new EventAction.FetchEvents)
   }
 
-  openDetailModal(event: EventObj) {
+  openDetailModal(event: Event) {
     this.dialog.open(EventDetailModalComponent,{data:{event}}).afterClosed().subscribe(res => {
-      if (res.success) {
+      if (res && res.success) {
         this.loadEvents();
       }
     });
@@ -87,33 +98,9 @@ export class EventListComponent {
     });
   }
 
-  isMyEvent(item : EventObj){
+  isMyEvent(item : Event){
     let myEvent = this.eventMyDataList?.find(elem => {
       return elem.id == item.id;
-    })
-    if(myEvent){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-
-  partecipa(item : EventObj){
-    if(!this.isUserIscritto(item)){
-      this.eventService.partecipaEvent(item).then(res =>{
-        if(res){
-          this._snackBar.open("Ti sei inscritto all'evento "+item.title+"", "OK");
-          this.reloadingEvents();
-        }
-      });
-    }
-  }
-
-  isUserIscritto(item : EventObj){
-
-    let myEvent = item.participantIds?.find(elem => {
-      return elem == this.userData?.id;
     })
     if(myEvent){
       return true;

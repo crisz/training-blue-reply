@@ -1,9 +1,9 @@
 export interface IEventState {
-    eventDate?: EventObj[],
-    myEvents?: EventObj[]
+    publicEvents: Event[],
+    myEvents: Event[]
   }
 
-  export interface EventObj {
+  export interface Event {
     id:string | null,
     place:string | null,
     imageUrl:string,
