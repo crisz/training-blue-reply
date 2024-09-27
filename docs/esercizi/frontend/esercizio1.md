@@ -2,7 +2,7 @@
 layout: page
 title: Ex1 ~ Developer tools
 permalink: /esercizi/frontend/esercizio1
-parent: Frontend
+parent: Esercizi Frontend
 nav_order: 1
 ---
 # Esercizio 1
