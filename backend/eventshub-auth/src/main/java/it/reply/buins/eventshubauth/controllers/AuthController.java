@@ -38,6 +38,10 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         String jwt = JwtUtils.generateToken(user.getUsername(), user.getId());
         headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/; SameSite=None; Secure;");
-        return ResponseEntity.ok().headers(headers).body(AuthResponse.builder().username(authRequest.getUsername()).build());
+        return ResponseEntity.ok().headers(headers).body(AuthResponse
+                .builder()
+                .username(user.getUsername())
+                .id(user.getId())
+                .build());
     }
 }
