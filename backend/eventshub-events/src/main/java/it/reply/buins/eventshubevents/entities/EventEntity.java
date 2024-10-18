@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "event")
 public class EventEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,7 +41,18 @@ public class EventEntity {
     @Column
     private Date endDate;
 
+    // No @Column here, as @OneToMany manages the relationship
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column
     private List<EventParticipant> participants = new LinkedList<>();
+
+    // Add custom constructor without dates
+    public EventEntity(Long id, String title, String description, String place, String imageUrl, Long userId, List<EventParticipant> participants) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.place = place;
+        this.imageUrl = imageUrl;
+        this.userId = userId;
+        this.participants = participants != null ? participants : new LinkedList<>();
+    }
 }
