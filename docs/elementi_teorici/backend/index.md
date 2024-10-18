@@ -1,8 +1,7 @@
 ---
 layout: page
 permalink: /esercizi/backend
-title: Esercizi Backend
-parent: Esercizi
+title: Elementi Teorici Backend
+parent: Elementi Teorici
 nav_order: 3
 ---
-Esercizi di back-end

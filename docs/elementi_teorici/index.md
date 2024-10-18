@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /teoria
-title: Riferimenti Teorici
+title: Elementi Teorici
 nav_order: 2
 ---
+Elementi Teorici
