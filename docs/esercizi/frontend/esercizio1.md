@@ -42,10 +42,10 @@ A seguito della login vengono restituiti da servizio 2 cookie: provare ad effett
         Selezionare http://localhost:4200
     </li>
     <li>
-        Provare a modificare il campo "Value" del cookie JWT; navigare il sito e verificare che gli endpoint che prevedono che i servizi identifichino l'utente loggato (riconosciuto tramite le info presenti nel cookie JWT) NON funzionino.
+        Provare a modificare il campo "Value" del cookie JWT; navigare il sito e verificare che gli endpoint che prevedono che i servizi identifichino l'utente loggato (riconosciuto tramite le info presenti nel cookie JWT) NON funzionino. La modifica in questo caso è stata efficace perché è stata fatta "tramite" il browser che deve poter avere visibilità dei cookie (anche HttpOnly) per poterli poi inviare nelle successive request.
     </li>
     <li>
-        Eseguire la logout, quindi la login. Provare a modificare il cookie JWT tramite console e verificare non sia possibile; non lo è in quanto JWT è un cookie HttpOnly e quindi non visibile/modificabile tramite Javascript. Questa accortezza aiuta a prevenire attacchi di tipo XSS: un attaccante può provare a iniettare codice malevolo nell'applicativo ma non sarà in grado di modificare il cookie contenente le informazioni del JWT. Il token "pippo", non essendo HttpOnly risulta invece modificabile.
+        Eseguire la logout, quindi la login. Provare a modificare il cookie JWT tramite console e verificare non sia possibile; non lo è in quanto JWT è un cookie HttpOnly e quindi non visibile/modificabile tramite Javascript. Questa accortezza aiuta a prevenire attacchi di tipo XSS: un attaccante può provare a iniettare codice malevolo nell'applicativo ma non sarà in grado di modificare il cookie contenente le informazioni del JWT. Il token "custom_theme", non essendo HttpOnly risulta invece modificabile.
     </li>
   </ol>
 </details>
