@@ -11,11 +11,4 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  title = signal('eventhub');
-
-  constructor(private router: Router) {}
-
-  change() {
-    this.title.set('hello');
-  }
 }
