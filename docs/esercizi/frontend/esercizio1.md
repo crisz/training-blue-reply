@@ -8,7 +8,7 @@ nav_order: 1
 # Esercizio 1
 
 ## Developer tools
-In questo esercizio verranno affrontate tematiche legate all'uso e alla comprensione dei Cookie.  
+In questo esercizio verranno affrontate tematiche legate all'uso e alla comprensione dei Cookie. In particolare sarà necessario agire tramite i "Developer tools" messi a disposizione dal browser. Dopo aver acceduto i developer tools aprire la scheda "Application" e quindi selezionare "Cookies" dalla lista di elemnti sulla colonna sinistra (Storage).
 
 ## Temi trattati
 Cookie
