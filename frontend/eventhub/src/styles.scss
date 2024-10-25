@@ -9,6 +9,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     justify-content: center;
     align-items: center;
   }
+  .capitalize{
+    text-transform: capitalize;
+  }
   
   .highlighted {
     background-color: yellow;

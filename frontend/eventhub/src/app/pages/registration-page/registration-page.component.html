@@ -1,18 +1,8 @@
 <mat-toolbar color="primary" class="mbotton10">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Registration page</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  <span>SIGN UP</span>
 </mat-toolbar>
     <div class="containerBox">
-      <form class="text-center" [formGroup]="registrationForm" novalidate>
+      <form class="text-center formBox" [formGroup]="registrationForm" novalidate>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
@@ -37,8 +27,8 @@
           </mat-form-field>
         </div>
         <div class="flex column">
-          <button class="mbotton10" (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
-          <button mat-flat-button (click)="goToPageLogin()">Go to Login</button>
+          <button class="mbotton10" (click)="register()" mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Registrati</button>
+          <button mat-flat-button (click)="goToPageLogin()">Accedi</button>
         </div>
         <!-- <div style="margin-top: 20px;" class="centered">
           <div class="arrow-back" (click)="goBack()"></div>

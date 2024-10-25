@@ -1,12 +1,9 @@
 <mat-toolbar color="primary" class="mbotton10">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Login page</span>
+  <span>LOGIN</span>
   <span class="example-spacer"></span>
 </mat-toolbar>
     <div class="containerBox">
-      <form class="text-center" [formGroup]="loginForm" novalidate>
+      <form class="text-center formBox" [formGroup]="loginForm" novalidate>
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
@@ -23,8 +20,8 @@
           </mat-form-field>
         </div>
         <div class="flex column">
-          <button class="mbotton10" (click)="login()" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Log in</button>
-          <button class="green-button" mat-flat-button (click)="goToPageSignOn()">Go to Sign Up</button>
+          <button class="mbotton10" (click)="login()" mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">Accedi</button>
+          <button class="green-button" mat-flat-button (click)="goToPageSignOn()">Registrati</button>
         </div>
         <!-- <div style="margin-top: 20px;" class="centered">
           <div class="arrow-back" (click)="goBack()"></div>
