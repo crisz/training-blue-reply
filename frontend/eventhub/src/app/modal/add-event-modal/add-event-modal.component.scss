@@ -1,29 +1,26 @@
-:host{
-    .containerModal{
-        margin: 20px;
-        overflow-y: scroll;
-    max-height: 900px;
-    }
-    .modal-title {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        padding: 15px 0;
-        border-bottom: 2px solid #ccc;
-        margin-bottom: 20px;
-    }
-    .upload-box {
-        border: 2px dashed #ccc;
-        padding: 20px;
-        text-align: center;
-        cursor: pointer;
-        margin-top: 10px;
-        margin-bottom: 10px;;
-      }
-      
-      .upload-box p {
-        margin: 0;
-        color: #aaa;
-      }
-      
+.containerModal {
+  margin: 20px;
+  overflow-y: scroll;
+  max-height: 900px;
+}
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+.upload-box {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-box p {
+  margin: 0;
+  color: #aaa;
 }

@@ -17,16 +17,15 @@
       </div>
 
       <mat-list *ngIf="eventDataList && eventDataList.length > 0" role="list" class="event-list">
-        <mat-list-item class="box-event" *ngFor="let item of eventDataList" 
+        <mat-card class="box-event" *ngFor="let item of eventDataList" 
                        (click)="openDetailModal(item)" role="listitem">
             <div class="event-details">
             <div class="w50">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>
             <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
             <div *ngIf="!isMyEvent(item)" class="w20">{{isUserIscritto(item)? "Iscritto": "Iscriviti"}}</div>
-            <div *ngIf="isMyEvent(item)"  class="edit-icon positionModifyIcon"></div>
           </div>
-        </mat-list-item>
+        </mat-card>
         <mat-divider></mat-divider>
       </mat-list>
 
@@ -42,15 +41,14 @@
       </div>
 
       <mat-list *ngIf="eventMyDataList && eventMyDataList.length > 0" role="list" class="event-list">
-        <mat-list-item class="box-event" *ngFor="let item of eventMyDataList" 
+        <mat-card class="box-event" *ngFor="let item of eventMyDataList" 
                        (click)="openDetailModal(item)" role="listitem">
           <div class="event-details">
             <div class="w50">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>
             <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
-            <div *ngIf="isMyEvent(item)" class="edit-icon positionModifyIcon"></div>
           </div>
-        </mat-list-item>
+        </mat-card>
         <mat-divider></mat-divider>
       </mat-list>
 
