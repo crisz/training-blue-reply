@@ -1,11 +1,7 @@
 <mat-toolbar color="primary" class="mbotton10">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Event list Page</span>
+  <div>Benvenuto {{userData?.username}}</div>
   <span class="example-spacer"></span>
-  <div>BENVENUTO {{userData?.username}}</div>
-  <div (click)="goToLoginPage()" class="exit-icon positionEnd"></div>
+  <button (click)="goToLoginPage()" mat-button>Esci</button>
 </mat-toolbar>
 
 <mat-tab-group>
