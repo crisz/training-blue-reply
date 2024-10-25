@@ -24,13 +24,19 @@ public class EventMultiPartPayloadDto {
     private String description;
     private String place;
     private MultipartFile image;  // MultipartFile for the image
+    private Date startDate;
+    private Date endDate;
 
     // List of participants, if relevant
     private List<EventParticipant> participants = new LinkedList<>();
 
     public EventEntity toEntity(String imageUrl, Long userId) {
-        Date startDate = new Date(System.currentTimeMillis()); // Oppure la data corretta
-        Date endDate = new Date(System.currentTimeMillis());   // Oppure la data corretta
+        if (startDate == null) {
+            this.startDate = new Date(System.currentTimeMillis());
+        }
+        if (endDate == null) {
+            this.endDate = new Date(System.currentTimeMillis());
+        }
         List<EventParticipant> participants = this.participants != null ? this.participants : new LinkedList<>();
 
         if (this.id != null) {
