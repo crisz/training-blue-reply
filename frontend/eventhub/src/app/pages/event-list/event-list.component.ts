@@ -35,8 +35,10 @@ export class EventListComponent {
   @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
 
   readonly dialog = inject(MatDialog);
-
-  constructor(private router: Router, private authService: AuthenticationService, private store: Store, private eventService: EventsService, private dialogService: DialogService, private _snackBar : MatSnackBar) {}
+  readonly router = inject(Router);
+  readonly authService = inject(AuthenticationService);
+  readonly store = inject(Store);
+  readonly dialogService = inject(DialogService);
 
   ngOnInit() {
     if (!this.authService.isLoggedIn()) {
@@ -52,7 +54,7 @@ export class EventListComponent {
   loadEvents() {
     this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
       console.log('Azione FetchEvents dispatchata');
-    });;
+    });
     this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
