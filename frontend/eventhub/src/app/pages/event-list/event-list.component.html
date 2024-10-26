@@ -3,7 +3,11 @@
   <span class="example-spacer"></span>
   <button (click)="goToLoginPage()" mat-button>Esci</button>
 </mat-toolbar>
-
+<div *ngIf="isLoading" class="box-spinner"> <!-- Esempio di spinner-->
+  <mat-spinner
+  class="class-spinner">
+  </mat-spinner>
+</div>
 <mat-tab-group>
   <mat-tab label="Tutti gli Eventi">
     <div class="primaryContent">

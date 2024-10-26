@@ -47,10 +47,10 @@ export class EventState {
               console.log('Eventi ricevuti', events); // Log per vedere se i dati vengono ricevuti
             this.store.dispatch(new EventAction.SetEventDataList(events));
           }),
-          catchError(error => {
+          catchError(error => { //
             console.error('Error fetching events:', error);
             // Handle the error accordingly or rethrow
-            throw error;
+            throw error; //da capire se si riescono ad usare effect
           })
         );
     }

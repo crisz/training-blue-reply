@@ -35,29 +35,35 @@ export class EventListComponent {
   @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
 
   readonly dialog = inject(MatDialog);
+  public isLoading : boolean = false;
 
   constructor(private router: Router, private authService: AuthenticationService, private store: Store, private eventService: EventsService, private dialogService: DialogService, private _snackBar : MatSnackBar) {}
 
   ngOnInit() {
-    if (!this.authService.isLoggedIn()) {
-      this.dialogService.openDialogMessage("Utente non loggato", "Fai la login");
-      this.router.navigate(['/login-page']);
-    } else {
-      const user = this.authService.getUserLogged();
-      this.store.dispatch(new UserAction.SetUserData({id:user.id, email: user.email, password: user.password, username: user.username }));
-      this.loadEvents();
-    }
+    const user = this.authService.getUserLogged();
+    this.store.dispatch(new UserAction.SetUserData({id:user.id, email: user.email, password: user.password, username: user.username }));
+    this.loadEvents();
   }
 
   loadEvents() {
+    this.isLoading = true;
     this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
-      console.log('Azione FetchEvents dispatchata');
-    });;
+      this.isLoading = false;
+    }
+    ,(error) =>{
+    this.isLoading = false;
+    });
     this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
   reloadingMyEvents() {
-    this.store.dispatch(new EventAction.FetchMyEvents);
+    this.isLoading = true;
+    this.store.dispatch(new EventAction.FetchMyEvents).subscribe(() => {
+      this.isLoading = false;
+    }
+    ,(error) =>{
+      this.isLoading = false;
+      });
   }
 
   isUserIscritto(item : Event){
