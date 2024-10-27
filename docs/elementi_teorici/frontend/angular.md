@@ -279,15 +279,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 2. Registrazione dell'Interceptor nel Modulo Principale
 
-Per applicare l'interceptor creato, è necessario registrarlo nei provider del modulo principale (AppModule). Assicurati di aver installato ngx-toastr e @angular/animations:
-
-```bash
-bash
-Copia codice
-npm install ngx-toastr --save
-npm install @angular/animations --save
-```
-
 Modifica il file app.module.ts come segue:
 
 ```javascript
@@ -417,16 +408,22 @@ Template del Componente
 Riassunto del Flusso di Gestione degli Errori con Interceptor:
 
 1) Richiesta HTTP: Il DataService effettua una richiesta HTTP utilizzando HttpClient.
+
 2) Interceptor: L'interceptor ErrorInterceptor intercetta la risposta HTTP. Se si verifica un errore, l'interceptor:
     - Logga l'errore nella console.
     - Mostra una notifica all'utente tramite ToastrService.
     - Propaga l'errore al chiamante.
+
 3) Componente: Il componente ExampleComponent riceve l'errore attraverso l'osservabile e imposta un messaggio di errore comprensibile all'utente.
+
 4) Feedback all'Utente: L'utente vede una notifica pop-up gestita dall'interceptor e un messaggio di errore nell'interfaccia utente del componente.
 
 Vantaggi dell'Utilizzo degli Interceptor per la Gestione degli Errori
+
 1) Centralizzazione: Tutte le logiche di gestione degli errori HTTP sono consolidate in un unico punto, riducendo la duplicazione del codice.
+
 2) Manutenzione Facilitata: Modifiche alla gestione degli errori possono essere effettuate nell'interceptor senza dover aggiornare ogni singolo servizio o componente.
+
 3) Esperienza Utente Migliorata: Notifiche coerenti e informative migliorano la comunicazione degli errori all'utente finale.
 
 ## Collegamenti Esterni
