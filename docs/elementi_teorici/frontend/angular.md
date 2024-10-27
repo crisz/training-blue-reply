@@ -157,17 +157,20 @@ Angular offre diversi **lifecycle hooks** che consentono di eseguire operazioni 
 La gestione degli errori rappresenta un aspetto cruciale nello sviluppo di applicazioni Angular di qualità. Un'efficace strategia di gestione degli errori non solo migliora l'affidabilità e la robustezza dell'applicazione, ma contribuisce anche a un'esperienza utente ottimale e facilita la manutenzione del codice.
 
 1. Importanza della Gestione degli Errori
+
 Nel ciclo di vita di un'applicazione, gli errori possono manifestarsi in diverse forme e a vari livelli, inclusi errori di rete, bug nel codice, malfunzionamenti di componenti o servizi, e input non validi da parte dell'utente. Una gestione inadeguata degli errori può portare a crash dell'applicazione, perdita di dati, e un'esperienza utente frustrante. Pertanto, implementare una strategia solida per la gestione degli errori è essenziale per garantire la stabilità e la fiducia degli utenti nell'applicazione.
 
 2. Tipologie di Errori in Angular
+
 Gli errori in Angular possono essere classificati in diverse categorie, ciascuna con caratteristiche specifiche e necessità di gestione particolari:
 
-Errori di Rete: Problemi nella comunicazione tra client e server, come interruzioni di connessione o risposte non valide.
-Errori di Validazione: Input non conformi ai requisiti dell'applicazione, spesso gestiti tramite form validation.
-Errori di Logica: Bug nel codice che causano comportamenti imprevisti o malfunzionamenti dell'applicazione.
-Errori di Terze Parti: Problemi derivanti da librerie o servizi esterni integrati nell'applicazione.
+- Errori di Rete: Problemi nella comunicazione tra client e server, come interruzioni di connessione o risposte non valide.
+- Errori di Validazione: Input non conformi ai requisiti dell'applicazione, spesso gestiti tramite form validation.
+- Errori di Logica: Bug nel codice che causano comportamenti imprevisti o malfunzionamenti dell'applicazione.
+- Errori di Terze Parti: Problemi derivanti da librerie o servizi esterni integrati nell'applicazione.
 
 3. Principi Fondamentali della Gestione degli Errori
+
 Per affrontare efficacemente gli errori in Angular, è utile seguire alcuni principi fondamentali:
 
 Centralizzazione: Consolidare la logica di gestione degli errori in punti centralizzati dell'applicazione per evitare duplicazioni e facilitare la manutenzione.
@@ -176,6 +179,7 @@ Feedback all'Utente: Fornire messaggi chiari e comprensibili all'utente in caso 
 Resilienza: Implementare meccanismi di recupero, come il retry delle operazioni fallite o l'uso di fallback, per mantenere l'applicazione operativa nonostante gli errori.
 
 4. Componenti Chiave nella Gestione degli Errori in Angular
+
 Angular offre diverse funzionalità e strumenti per gestire gli errori in maniera efficace. Tra i componenti chiave troviamo:
 
 HttpClient e RxJS: Utilizzati per effettuare richieste HTTP e gestire risposte asincrone, includendo operatori come catchError per intercettare e gestire gli errori.
@@ -184,6 +188,7 @@ ErrorHandler Globale: Un servizio che estende la classe ErrorHandler di Angular 
 Componenti e Servizi Personalizzati: Implementazioni specifiche per gestire errori in contesti particolari, come componenti di interfaccia utente o servizi di business logic.
 
 5. Approcci alla Gestione degli Errori
+
 Diversi approcci possono essere adottati per gestire gli errori in Angular, ognuno con i propri vantaggi e scenari di applicazione:
 
 Gestione Locale negli Snippets di Codice: Implementare la gestione degli errori direttamente nei componenti o servizi specifici, utilizzando costrutti come try-catch o operatori di RxJS.
@@ -192,6 +197,7 @@ ErrorHandler Globale: Estendere la classe ErrorHandler per catturare errori non 
 Servizi di Logging Esterni: Integrare servizi di terze parti o personalizzati per registrare e monitorare gli errori in ambienti di produzione.
 
 6. Best Practices per la Gestione degli Errori in Angular
+
 Per garantire una gestione efficace degli errori, è consigliabile seguire alcune best practice consolidate:
 
 - Centralizzare la Logica di Gestione degli Errori: Utilizzare interceptor e gestori globali per evitare duplicazioni e mantenere una gestione coerente degli errori.
@@ -203,6 +209,7 @@ Per garantire una gestione efficace degli errori, è consigliabile seguire alcun
 - Testare la Gestione degli Errori: Scrivere test unitari e di integrazione per verificare che gli errori vengano gestiti correttamente in tutti i casi previsti.
 
 7. Vantaggi di una Corretta Gestione degli Errori
+
 Adottare una strategia efficace di gestione degli errori in Angular comporta numerosi vantaggi:
 
 - Miglioramento dell'Affidabilità: Riduce la probabilità di crash e malfunzionamenti, garantendo un funzionamento più stabile dell'applicazione.
@@ -220,6 +227,7 @@ Esempio di Utilizzo di un Interceptor per la Gestione degli Errori
 Di seguito è riportato un esempio pratico di un interceptor che gestisce gli errori nelle risposte HTTP, loggando l'errore e mostrando una notifica all'utente utilizzando ngx-toastr.
 
 1. Creazione dell'Interceptor
+
 Crea un file chiamato error.interceptor.ts nella cartella src/app/interceptors/.
 
 ```javascript
@@ -270,6 +278,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 ```
 
 2. Registrazione dell'Interceptor nel Modulo Principale
+
 Per applicare l'interceptor creato, è necessario registrarlo nei provider del modulo principale (AppModule). Assicurati di aver installato ngx-toastr e @angular/animations:
 
 ```bash
@@ -320,6 +329,7 @@ export class AppModule { }
 ```
 
 3. Implementazione di un Servizio che Utilizza HttpClient
+
 Creiamo un servizio che effettua una richiesta HTTP. L'interceptor gestirà eventuali errori automaticamente.
 
 ```javascript
@@ -351,6 +361,7 @@ export class DataService {
 ```
 
 4. Utilizzo del Servizio in un Componente
+
 Infine, utilizziamo il servizio in un componente per recuperare i dati e gestire gli errori.
 
 ```javascript
@@ -389,6 +400,7 @@ export class ExampleComponent implements OnInit {
 ```
 
 Template del Componente
+
 ```html
 <!-- src/app/components/example/example.component.html -->
 <div *ngIf="errorMessage" class="alert alert-danger">
@@ -402,7 +414,8 @@ Template del Componente
   <p>Caricamento dati in corso...</p>
 </div>
 ```
-Riassunto del Flusso di Gestione degli Errori con Interceptor
+Riassunto del Flusso di Gestione degli Errori con Interceptor:
+
 1) Richiesta HTTP: Il DataService effettua una richiesta HTTP utilizzando HttpClient.
 2) Interceptor: L'interceptor ErrorInterceptor intercetta la risposta HTTP. Se si verifica un errore, l'interceptor:
     - Logga l'errore nella console.
