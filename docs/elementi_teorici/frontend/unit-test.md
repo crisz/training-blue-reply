@@ -1,7 +1,7 @@
 ---
 layout: page
-title:  Angular
-permalink: /teoria/frontend/angular
+title:  Unit Test
+permalink: /teoria/frontend/unit-test
 parent: Elementi Teorici Frontend
 ---
 

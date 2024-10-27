@@ -1,7 +1,7 @@
 ---
 layout: page
-title:  Angular
-permalink: /teoria/frontend/angular
+title:  Storage
+permalink: /teoria/frontend/storage
 parent: Elementi Teorici Frontend
 ---
 

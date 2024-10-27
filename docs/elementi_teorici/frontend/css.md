@@ -1,7 +1,7 @@
 ---
 layout: page
-title:  Angular
-permalink: /teoria/frontend/angular
+title:  Flex/Grid
+permalink: /teoria/frontend/Flex-Grid
 parent: Elementi Teorici Frontend
 ---
 

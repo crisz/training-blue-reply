@@ -1,7 +1,7 @@
 ---
 layout: page
-title:  Angular
-permalink: /teoria/frontend/angular
+title:  L'uso dello Store
+permalink: /teoria/frontend/store
 parent: Elementi Teorici Frontend
 ---
 
