@@ -428,3 +428,12 @@ Vantaggi dell'Utilizzo degli Interceptor per la Gestione degli Errori
 1) Centralizzazione: Tutte le logiche di gestione degli errori HTTP sono consolidate in un unico punto, riducendo la duplicazione del codice.
 2) Manutenzione Facilitata: Modifiche alla gestione degli errori possono essere effettuate nell'interceptor senza dover aggiornare ogni singolo servizio o componente.
 3) Esperienza Utente Migliorata: Notifiche coerenti e informative migliorano la comunicazione degli errori all'utente finale.
+
+## Collegamenti Esterni
+
+Per ulteriori approfondimenti, puoi consultare i seguenti collegamenti:
+
+- [What is Angular?](https://angular.dev/overview)
+- [Component Lifecycle in Angular v17](https://medium.com/@nandeepbarochiya/component-lifecycle-in-angular-v17-782f03cc9da3)
+- [Angular Lifecycle Hooks — Everything you need to know](https://medium.com/@sinanozturk/angular-component-lifecycle-hooks-2f600c48dff3)
+- [Gestione degli errori](https://accademia.dev/gestione-degli-errori/)
