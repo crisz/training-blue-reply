@@ -156,6 +156,8 @@ Per esempio, **IndexedDB** può essere utilizzato per memorizzare i dati localme
 
 La gestione dello storage in Angular offre diverse possibilità a seconda delle esigenze dell'applicazione. **LocalStorage** e **sessionStorage**, attraverso la **Web Storage API**, sono semplici e immediati per dati non critici, mentre **IndexedDB** offre una soluzione scalabile per la memorizzazione di grandi volumi di dati e per il supporto offline. I **cookie**, invece, rimangono utili per esigenze di autenticazione e tracciamento. La scelta della tecnologia più adatta dipende dal contesto del progetto e dai requisiti specifici in termini di sicurezza, volume di dati e necessità di sincronizzazione. Creare servizi dedicati per la gestione dello storage è una buona pratica per garantire un codice più pulito, manutenibile e scalabile. Tuttavia, la sicurezza dei dati deve essere sempre una priorità, utilizzando tecniche di crittografia, controllo degli accessi, scadenza dei dati e monitoraggio per mitigare i rischi associati all'uso dello storage lato client.
 
+## Collegamenti Esterni
+
 Per ulteriori approfondimenti, puoi consultare i seguenti collegamenti:
 
 - [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)

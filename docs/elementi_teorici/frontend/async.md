@@ -198,6 +198,8 @@ Infine, comprendere l'**Event Loop** è cruciale per capire come funziona JavaSc
 
 La programmazione asincrona è una delle pietre miliari per lo sviluppo di applicazioni moderne, in grado di fornire esperienze utente fluide e prestazioni elevate. L'utilizzo appropriato di strumenti come Observables, Promises e async/await consente di affrontare le sfide del mondo reale, migliorando l'efficienza e la reattività dell'applicazione. Scegliere l'approccio giusto in base alle esigenze del progetto è fondamentale per ottenere applicazioni affidabili, scalabili e facili da mantenere.
 
+## Collegamenti Esterni
+
 Per ulteriori approfondimenti, puoi consultare i seguenti collegamenti:
 
 - [Angular Promises Versus Observables](https://www.syncfusion.com/blogs/post/angular-promises-vs-observables)
