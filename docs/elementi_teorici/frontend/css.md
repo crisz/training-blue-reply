@@ -5,7 +5,7 @@ permalink: /teoria/frontend/scss
 parent: Elementi Teorici Frontend
 ---
 
-# Layout in CSS: Flex, Grid e SCSS
+# Layout in CSS
 
 CSS, o **Cascading Style Sheets**, è il linguaggio che gestisce la parte estetica di un sito web, permettendo di definire come si presentano gli elementi su una pagina. Sebbene **HTML** sia responsabile della struttura dei contenuti, il CSS controlla il loro aspetto e il loro posizionamento, includendo colore, font, margini e layout.
 
