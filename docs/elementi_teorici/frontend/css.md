@@ -1,6 +1,6 @@
 ---
 layout: page
-title:  Flex/Grid
+title:  Layout in CSS
 permalink: /teoria/frontend/scss
 parent: Elementi Teorici Frontend
 ---
