@@ -146,3 +146,11 @@ Gli **unit test** sono uno strumento fondamentale per garantire la qualità del 
 ### Conclusione
 
 Gli **unit test** sono uno strumento fondamentale per garantire la qualità del software. Sebbene richiedano uno sforzo aggiuntivo durante la fase di sviluppo, i benefici in termini di stabilità, affidabilità e manutenibilità del codice superano di gran lunga i costi iniziali. Utilizzare gli unit test in modo efficace permette di affrontare le complessità del software moderno con maggiore fiducia, riducendo il rischio di bug e favorendo una progettazione del codice più robusta e modulare.
+
+## Collegamenti Esterni
+
+Per ulteriori approfondimenti, puoi consultare i seguenti collegamenti:
+
+- [Unit testing Angular with Jest](https://albertobasalo.medium.com/unit-testing-angular-with-jest-7de62ae2acd8)
+
+- [Unit testing](https://it.wikipedia.org/wiki/Unit_testing)
