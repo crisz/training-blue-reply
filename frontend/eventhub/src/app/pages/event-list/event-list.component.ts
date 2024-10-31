@@ -66,7 +66,7 @@ export class EventListComponent {
       });
   }
 
-  isUserIscritto(item : Event){
+  isUserRegistered(item : Event){
 
     let myEvent = item.participantIds?.find(elem => {
       return elem == this.userData?.id;

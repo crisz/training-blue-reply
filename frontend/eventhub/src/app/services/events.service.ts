@@ -39,7 +39,7 @@ export class EventsService {
     );
   }
 
-  async partecipaEvent(event: Event): Promise<any>{
+  async eventPartecipate(event: Event): Promise<any>{
     let eventId = event.id;
     try {
       const response = await fetch('api/events/'+eventId+'/participate', {

@@ -32,9 +32,9 @@ export class EventDetailModalComponent {
     })
   }
 
-  partecipa(item : Event){
-    //if(!this.isUserIscritto(item)){
-      this.eventService.partecipaEvent(item).then(res =>{
+  partecipate(item : Event){
+    //if(!this.isUserRegistered(item)){
+      this.eventService.eventPartecipate(item).then(res =>{
         if(res){
           this._snackBar.open("Ti sei inscritto all'evento "+item.title+"", "OK");
           this.closeModal();
@@ -47,8 +47,7 @@ export class EventDetailModalComponent {
     this.dialogRef.close({ success: true });
   }
 
-  isUserIscritto(item : Event){
-
+  isUserRegistered(item : Event){
     let myEvent = item.participantIds?.find(elem => {
       return elem == this.userData?.id;
     })

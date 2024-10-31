@@ -3,7 +3,7 @@
   <form class="text-center" [formGroup]="newEventForm" novalidate>
     <div>
       <mat-form-field appearance="outline">
-        <mat-label>Title</mat-label>
+        <mat-label>Titolo</mat-label>
         <input matInput type="text" formControlName="title" required>
         <mat-error *ngIf="newEventForm.get('title')?.dirty && newEventForm.get('title')?.hasError('required')">Title is required</mat-error>
         <mat-error *ngIf="newEventForm.get('title')?.dirty && newEventForm.get('title')?.hasError('title')">Invalid title format</mat-error>
@@ -11,7 +11,7 @@
     </div>
     <div>
       <mat-form-field appearance="outline">
-        <mat-label>Description</mat-label>
+        <mat-label>Descrizione</mat-label>
         <input matInput type="text" formControlName="description" required>
         <mat-error *ngIf="newEventForm.get('description')?.dirty && newEventForm.get('description')?.hasError('required')">Description is required</mat-error>
         <mat-error *ngIf="newEventForm.get('description')?.dirty && newEventForm.get('description')?.hasError('description')">Invalid description format</mat-error>
@@ -19,7 +19,7 @@
     </div>
     <div>
       <mat-form-field appearance="outline">
-        <mat-label>Place</mat-label>
+        <mat-label>Luogo</mat-label>
         <input matInput type="text" formControlName="place" required>
         <mat-error *ngIf="newEventForm.get('place')?.dirty && newEventForm.get('place')?.hasError('required')">Place is required</mat-error>
         <mat-error *ngIf="newEventForm.get('place')?.dirty && newEventForm.get('place')?.hasError('place')">Invalid place format</mat-error>
@@ -31,7 +31,7 @@
         <img [src]="filePreview" alt="Image Preview" style="max-width: 100%; height: auto;">
       </div>
       <ng-template #uploadPrompt>
-        <p>Click to upload photo</p>
+        <p>Clicca per caricare la foto</p>
       </ng-template>
       <mat-error *ngIf="newEventForm.get('file')?.dirty && newEventForm.get('file')?.hasError('required')">Photo is required</mat-error>
     </div>
