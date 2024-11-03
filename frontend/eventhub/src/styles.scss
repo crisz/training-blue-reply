@@ -21,7 +21,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
   .primaryContent{
     display: flex;
-    margin-top: 50px;
+    margin-top: 3.13rem;
     justify-content: center;
   }
   .flex{
@@ -39,10 +39,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
   .mbotton10{
-    margin-bottom: 10px;
+    margin-bottom: 0.63rem;
   }
   .mTop20{
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
   .example-spacer{
     width: 100%;
@@ -73,36 +73,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .arrow-back{
   background-image: url("./assets/icons/reshot-icon-left-arrow.svg");
-  width: 50px;
-  height: 50px;
+  width: 3.13rem;
+  height: 3.13rem;
   background-size: contain;
 }
 
 .exit-icon{
   background-image: url("./assets/icons/exit-icon.svg");
-  width: 80px;
-  height: 50px;
+  width: 5.00rem;
+  height: 3.13rem;
   background-size: cover;
 }
 
 .reload-icon{
   background-image: url("./assets/icons/reload-icon.svg");
-  width: 50px;
-  height: 50px;
+  width: 3.13rem;
+  height: 3.13rem;
   background-size: contain;
 }
 
 .edit-icon{
   background-image: url("./assets/icons/edit-icon.svg");
-  width: 50px;
-  height: 50px;
+  width: 3.13rem;
+  height: 3.13rem;
   background-size: contain;
 }
 
 //font ------------
 
 .font-title-page{
-  font-size: 30px;
+  font-size: 1.88rem;
   font-family: fantasy;
 }
 
