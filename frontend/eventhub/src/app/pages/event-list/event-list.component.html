@@ -21,6 +21,7 @@
           class="example-card"
           appearance="outlined"
           *ngFor="let event of eventDataList || []"
+          (click)="openDetailModal(event)"
         >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
@@ -55,35 +56,37 @@
         <div (click)="reloadMyEvents()" class="reload-icon"></div>
       </div>
 
-      <mat-list
-        *ngIf="eventMyDataList && eventMyDataList.length > 0"
-        role="list"
-        class="event-list"
-      >
+      <div class="events-container">
+        
         <mat-card
-          class="box-event"
-          *ngFor="let item of eventMyDataList"
-          (click)="openDetailModal(item)"
-          role="listitem"
+          class="example-card"
+          appearance="outlined"
+          *ngFor="let event of eventMyDataList || []"
+          (click)="openDetailModal(event)"
         >
-          <div class="event-details">
-            <div class="w50">Nome Evento: {{ item.title }}</div>
-            <div class="w20">Luogo: {{ item.place }}</div>
-            <div class="w20">
-              Numero Partecipanti: {{ item.participantIds.length }}
-            </div>
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ event.title }}</mat-card-title>
+            <mat-card-subtitle>{{ event.place }}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image [src]="event.imageUrl" alt="Photo of the event" />
+          <mat-card-content>
+            <p style="margin-top: 2rem">
+              {{ event.description }}
+            </p>
+          </mat-card-content>
+          <div>
+            Numero Partecipanti: {{ event.participantIds.length }}
           </div>
         </mat-card>
-        <mat-divider></mat-divider>
-      </mat-list>
-
-      <div
-        *ngIf="eventMyDataList && eventMyDataList.length === 0"
-        class="no-events"
-      >
-        Non ci sono eventi
+  
+        <div
+          *ngIf="eventMyDataList && eventMyDataList.length === 0"
+          class="no-events"
+        >
+          Non ci sono eventi
+        </div>
       </div>
-
       <div class="add-button-container">
         <button (click)="openModalAdd()" color="primary" mat-flat-button>Aggiungi nuovo Evento</button>
       </div>

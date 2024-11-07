@@ -26,10 +26,15 @@ export class EventDetailModalComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { event: Event },private eventService: EventsService,private _snackBar : MatSnackBar,public dialogRef: MatDialogRef<EventDetailModalComponent>) {}
 
   ngOnInit(){
-    this.event = this.data.event;  
-    this.eventService.getEventImage(this.event.imageUrl).then(response =>{
-      this.imageEvent = URL.createObjectURL(response);
-    })
+    this.event = this.data.event;
+    if (this.event.imageUrl.startsWith('http://') || this.event.imageUrl.startsWith('https://')) {
+      // If imageUrl is a web address, use it directly
+      this.imageEvent = this.event.imageUrl;
+    } else{
+      this.eventService.getEventImage(this.event.imageUrl).then(response =>{
+        this.imageEvent = URL.createObjectURL(response);
+      })
+    }  
   }
 
   partecipate(item : Event){
