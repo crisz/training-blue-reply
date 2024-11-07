@@ -39,7 +39,7 @@ export class EventListComponent {
   readonly authService = inject(AuthenticationService);
   readonly store = inject(Store);
   readonly dialogService = inject(DialogService);
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   ngOnInit() {
     const user = this.authService.getUserLogged();
