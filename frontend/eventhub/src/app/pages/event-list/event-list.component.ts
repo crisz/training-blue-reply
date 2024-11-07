@@ -7,7 +7,6 @@ import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { SharedModule } from '../../shared/shared.module';
 import { Store } from '@ngxs/store';
 import { MatDialog } from '@angular/material/dialog';
-import { EventsService } from '../../services/events.service';
 import { MatListModule } from '@angular/material/list';
 import { EventAction } from '../../../state/event-state/event.action';
 import { Event } from '../../models/event';
@@ -19,6 +18,7 @@ import { UserAction } from '../../../state/user-state/user.action';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventDetailModalComponent } from '../../modal/event-detail-modal/event-detail-modal.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-event-list',
@@ -48,37 +48,15 @@ export class EventListComponent {
   }
 
   loadEvents() {
-    this.isLoading = true;
-    this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
-      console.log('Azione FetchEvents dispatchata');
-    });
+    this.store.dispatch(new EventAction.FetchEvents);
     this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
-  reloadingMyEvents() {
-    this.isLoading = true;
-    this.store.dispatch(new EventAction.FetchMyEvents).subscribe(() => {
-      this.isLoading = false;
-    }
-    ,(error) =>{
-      this.isLoading = false;
-      });
+  reloadMyEvents() {
+    this.store.dispatch(new EventAction.FetchMyEvents);
   }
 
-  isUserRegistered(item : Event){
-
-    let myEvent = item.participantIds?.find(elem => {
-      return elem == this.userData?.id;
-    })
-    if(myEvent){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-
-  reloadingEvents() {
+  reloadAllEvents() {
     this.store.dispatch(new EventAction.FetchEvents)
   }
 
@@ -96,22 +74,11 @@ export class EventListComponent {
   }
 
   openModalAdd() {
-    this.dialog.open(AddEventModalComponent).afterClosed().subscribe(res => {
-      if (res.success) {
+    this.dialog.open(AddEventModalComponent)
+      .afterClosed()
+      .pipe(filter(res => res.success))
+      .subscribe(() => {
         this.loadEvents();
-      }
     });
-  }
-
-  isMyEvent(item : Event){
-    let myEvent = this.eventMyDataList?.find(elem => {
-      return elem.id == item.id;
-    })
-    if(myEvent){
-      return true;
-    }
-    else{
-      return false;
-    }
   }
 }

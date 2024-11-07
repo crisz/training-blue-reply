@@ -86,3 +86,21 @@ button[color="primary"] {
   color: darkblue;
   margin: 0.63rem;
 }
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('../../../assets/icons/event-icon.png');
+  background-size: cover;
+}
+
+.events-container {
+  display: flex;
+  gap: 15px;
+  max-width: 90vw;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+}
