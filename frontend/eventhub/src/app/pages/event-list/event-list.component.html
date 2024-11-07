@@ -3,7 +3,11 @@
   <span class="example-spacer"></span>
   <button (click)="goToLoginPage()" mat-button>Esci</button>
 </mat-toolbar>
-
+<div *ngIf="isLoading" class="box-spinner"> <!-- Esempio di spinner-->
+  <mat-spinner
+  class="class-spinner">
+  </mat-spinner>
+</div>
 <mat-tab-group>
   <mat-tab label="Tutti gli Eventi">
     <div class="primaryContent">
@@ -19,7 +23,7 @@
             <div class="w50">Nome Evento: {{item.title}}</div>
             <div class="w20">Luogo: {{item.place}}</div>
             <div class="w20">Numero Partecipanti: {{item.participantIds.length}}</div>
-            <div *ngIf="!isMyEvent(item)" class="w20">{{isUserIscritto(item)? "Iscritto": "Iscriviti"}}</div>
+            <div *ngIf="!isMyEvent(item)" class="w20">{{isUserRegistered(item)? "Iscritto": "Iscriviti"}}</div>
           </div>
         </mat-card>
         <mat-divider></mat-divider>
@@ -51,7 +55,7 @@
       <div *ngIf="eventMyDataList && eventMyDataList.length === 0" class="no-events">Non ci sono eventi</div>
 
       <div class="add-button-container">
-        <button (click)="openModalAdd()" color="primary" mat-flat-button>Add new Item</button>
+        <button (click)="openModalAdd()" color="primary" mat-flat-button>Aggiungi nuovo Evento</button>
       </div>
     </div>
   </mat-tab>

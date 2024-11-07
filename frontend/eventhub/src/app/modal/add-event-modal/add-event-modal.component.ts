@@ -51,7 +51,7 @@ export class AddEventModalComponent implements OnInit {
     }
   }
   
-
+  //funzione per creare l'evento 
   createEvent(): void {
     if (this.newEventForm.valid) {
       const eventData = new FormData();

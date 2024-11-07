@@ -12,6 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { EventState } from '../../state/event-state/event.state';
 import {MatCardModule} from '@angular/material/card';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,8 @@ import {MatCardModule} from '@angular/material/card';
     MatListModule,
     MatFormFieldModule,
     NgxsModule.forRoot([UserState,EventState]),
-    NgxsSelectSnapshotModule
+    NgxsSelectSnapshotModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -34,8 +36,8 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatCardModule
-
+    MatCardModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

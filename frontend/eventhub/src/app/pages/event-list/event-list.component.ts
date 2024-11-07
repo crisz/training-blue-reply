@@ -39,19 +39,16 @@ export class EventListComponent {
   readonly authService = inject(AuthenticationService);
   readonly store = inject(Store);
   readonly dialogService = inject(DialogService);
+  private isLoading: boolean = false;
 
   ngOnInit() {
-    if (!this.authService.isLoggedIn()) {
-      this.dialogService.openDialogMessage("Utente non loggato", "Fai la login");
-      this.router.navigate(['/login-page']);
-    } else {
-      const user = this.authService.getUserLogged();
-      this.store.dispatch(new UserAction.SetUserData({id:user.id, email: user.email, password: user.password, username: user.username }));
-      this.loadEvents();
-    }
+    const user = this.authService.getUserLogged();
+    this.store.dispatch(new UserAction.SetUserData({id:user.id, email: user.email, password: user.password, username: user.username }));
+    this.loadEvents();
   }
 
   loadEvents() {
+    this.isLoading = true;
     this.store.dispatch(new EventAction.FetchEvents).subscribe(() => {
       console.log('Azione FetchEvents dispatchata');
     });
@@ -59,10 +56,16 @@ export class EventListComponent {
   }
 
   reloadingMyEvents() {
-    this.store.dispatch(new EventAction.FetchMyEvents);
+    this.isLoading = true;
+    this.store.dispatch(new EventAction.FetchMyEvents).subscribe(() => {
+      this.isLoading = false;
+    }
+    ,(error) =>{
+      this.isLoading = false;
+      });
   }
 
-  isUserIscritto(item : Event){
+  isUserRegistered(item : Event){
 
     let myEvent = item.participantIds?.find(elem => {
       return elem == this.userData?.id;

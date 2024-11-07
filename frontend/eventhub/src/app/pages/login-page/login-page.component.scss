@@ -5,30 +5,30 @@
     
     .input-group {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 0.63rem;
       overflow: hidden;
-      margin-bottom: 15px;
+      margin-bottom: 0.94rem;
     }
     
     .errors {
       font-size: small;
       color: #fff;
       background: var(--ion-color-danger);
-      padding-left: 15px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+      padding-left: 0.94rem;
+      padding-top: 0.31rem;
+      padding-bottom: 0.31rem;
     }
 
     .formBox{
-      width: 500px;
+      width: 31.25rem;
     }
 
     .containerBox{
-      border-radius: 10px;
+      border-radius: 0.63rem;
       background: #ffffff;
-      padding: 20px;
-      min-width: 100px;
-      min-height: 250px;
+      padding: 1.25rem;
+      min-width: 6.25rem;
+      min-height: 15.63rem;
       text-align: -webkit-center;
     }
   }

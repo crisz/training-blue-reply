@@ -6,10 +6,10 @@
         <mat-card-subtitle>Luogo: {{event?.place}}</mat-card-subtitle>
         <mat-card-content>
           <p>{{event?.description}}</p>
-          <p><strong>Number of Participants:</strong> {{event?.participantIds?.length}}</p>
+          <p><strong>Numero dei partecipanti:</strong> {{event?.participantIds?.length}}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button (click)="partecipa(event!)" mat-raised-button color="primary">Partecipa</button>
+          <button (click)="partecipate(event!)" mat-raised-button color="primary">Partecipa</button>
         </mat-card-actions>
       </mat-card>
 </div>
