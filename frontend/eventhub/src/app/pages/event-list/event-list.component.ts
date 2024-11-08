@@ -76,7 +76,7 @@ export class EventListComponent {
   openModalAdd() {
     this.dialog.open(AddEventModalComponent)
       .afterClosed()
-      .pipe(filter(res => res.success))
+      .pipe(filter(res => res?.success))
       .subscribe(() => {
         this.loadEvents();
     });

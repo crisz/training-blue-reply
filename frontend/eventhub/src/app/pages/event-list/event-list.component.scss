@@ -5,6 +5,10 @@
   margin-right: 5%;
 }
 
+button{
+  border-radius: 1.25rem;
+}
+
 .reload-icon {
   width: 1.56rem;
   height: 1.56rem;
@@ -62,25 +66,13 @@
 .add-button-container {
   position: fixed;
   bottom: 1.25rem;
-  width: calc(100% - 2.50rem); // Adjust width for padding
   display: flex;
   justify-content: center;
   padding: 0.63rem;
-  background-color: #f0f0f0;
+  right: 0;
+  z-index: 1;
 }
 
-button[color="primary"] {
-  background-color: #1976d2;
-  color: #fff;
-  border-radius: 1.50rem;
-  padding: 0.63rem 1.25rem;
-  font-weight: bold;
-  box-shadow: 0 0.13rem 0.25rem rgba(0, 0, 0, 0.2);
-
-  &:hover {
-    background-color: #155a9c;
-  }
-}
 .box-event {
   border: solid;
   color: darkblue;
