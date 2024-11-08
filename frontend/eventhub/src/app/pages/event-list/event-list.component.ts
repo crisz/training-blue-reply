@@ -62,7 +62,7 @@ export class EventListComponent {
 
   openDetailModal(event: Event) {
     this.dialog.open(EventDetailModalComponent,{data:{event}}).afterClosed().subscribe(res => {
-      if (res && res.success) {
+      if (res?.success) {
         this.loadEvents();
       }
     });

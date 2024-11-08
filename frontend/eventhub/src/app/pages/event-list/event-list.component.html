@@ -40,7 +40,7 @@
         </mat-card>
   
         <div
-          *ngIf="eventDataList && eventDataList.length === 0"
+          *ngIf="eventDataList?.length === 0"
           class="no-events"
         >
           Non ci sono eventi
@@ -81,7 +81,7 @@
         </mat-card>
   
         <div
-          *ngIf="eventMyDataList && eventMyDataList.length === 0"
+          *ngIf="eventMyDataList?.length === 0"
           class="no-events"
         >
           Non ci sono eventi
