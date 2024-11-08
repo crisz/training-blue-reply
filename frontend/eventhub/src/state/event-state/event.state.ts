@@ -40,15 +40,12 @@ export class EventState {
 
     @Action(EventAction.FetchEvents)
     fetchEvents(ctx: StateContext<any>) {
-      console.log('Azione FetchEvents dispatchata');
       return from(this.eventService.retrieveAllEvents())
         .pipe(
           tap(events => {
-              console.log('Eventi ricevuti', events); // Log per vedere se i dati vengono ricevuti
             this.store.dispatch(new EventAction.SetEventDataList(events));
           }),
           catchError(error => { //
-            console.error('Error fetching events:', error);
             // Handle the error accordingly or rethrow
             throw error; //da capire se si riescono ad usare effect
           })
@@ -58,15 +55,12 @@ export class EventState {
 
     @Action(EventAction.FetchMyEvents)
     fetchMyEvents(ctx: StateContext<any>) {
-      console.log('Azione FetchEvents dispatchata');
       return from(this.eventService.retrieveMyEvents())
         .pipe(
           tap(events => {
-              console.log('Eventi ricevuti', events); // Log per vedere se i dati vengono ricevuti
               this.store.dispatch(new EventAction.SetMyAEventDataList(events));
           }),
           catchError(error => {
-            console.error('Error fetching events:', error);
             // Handle the error accordingly or rethrow
             throw error;
           })
