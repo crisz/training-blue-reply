@@ -1,0 +1,37 @@
+
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./sources/backend/eventshub-auth
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - eventshub-network
+
+  events-service:
+    build:
+      context: ./sources/backend/eventshub-events
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - eventshub-network
+
+  frontend:
+    build:
+      context: ./sources/frontend/eventshub
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200" 
+    volumes:
+      - ./sources/frontend/eventshub:/app 
+      - /app/node_modules  # Evita di montare i node_modules
+    networks:
+      - eventshub-network
+
+networks:
+  eventshub-network:
+    driver: bridge

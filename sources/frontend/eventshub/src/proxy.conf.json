@@ -1,0 +1,16 @@
+{
+    "/api/events": {
+      "target": "http://events-service:8081",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/api/auth": {
+      "target": "http://auth-service:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
