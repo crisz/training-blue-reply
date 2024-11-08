@@ -8,5 +8,5 @@ COPY eventshub .
 EXPOSE 4200
 
 # Comando per avviare l'app in modalità sviluppo con hot reload
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@16.2.7
 CMD ["ng", "serve", "--host", "0.0.0.0"]

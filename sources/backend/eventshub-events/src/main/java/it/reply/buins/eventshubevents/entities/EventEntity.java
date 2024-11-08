@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -44,6 +46,14 @@ public class EventEntity {
     // No @Column here, as @OneToMany manages the relationship
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventParticipant> participants = new LinkedList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "event_category",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<CategoryEntity> categories = new HashSet<>();
 
     // Add custom constructor without dates
     public EventEntity(Long id, String title, String description, String place, String imageUrl, Long userId, List<EventParticipant> participants) {

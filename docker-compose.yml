@@ -22,7 +22,7 @@ services:
 
   frontend:
     build:
-      context: ./sources/frontend/eventshub
+      context: ./sources/frontend
       dockerfile: Dockerfile
     ports:
       - "4200:4200" 

@@ -1,13 +1,13 @@
 package it.reply.buins.eventshubevents.services;
 
-import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
+import it.reply.buins.eventshubevents.dto.EventRequestDto;
+import it.reply.buins.eventshubevents.dto.EventRequestMultipartDto;
 import it.reply.buins.eventshubevents.dto.EventResponseDto;
 import it.reply.buins.eventshubevents.entities.EventEntity;
 import it.reply.buins.eventshubevents.entities.EventParticipant;
 import it.reply.buins.eventshubevents.entities.EventParticipantPk;
 import it.reply.buins.eventshubevents.repositories.EventParticipantRepository;
 import it.reply.buins.eventshubevents.repositories.EventsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,8 +44,15 @@ public class EventsService {
         return EventResponseDto.fromEntityList(this.repository.findAllByUserId(userId));
     }
 
-    public EventResponseDto createEvent(EventMultiPartPayloadDto eventFromFe, Long userId) {
+    public EventResponseDto createEvent(EventRequestMultipartDto eventFromFe, Long userId) {
         String imageUrl = uploadFile(eventFromFe.getImage());
+        EventEntity eventEntity = eventFromFe.toEntity(imageUrl, userId);
+        EventEntity responseEntity = repository.save(eventEntity);
+        return participateToEvent(responseEntity, userId);
+    }
+
+    public EventResponseDto createEvent(EventRequestDto eventFromFe, Long userId) {
+        String imageUrl = "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
         EventEntity eventEntity = eventFromFe.toEntity(imageUrl, userId);
         EventEntity responseEntity = repository.save(eventEntity);
         return participateToEvent(responseEntity, userId);
@@ -70,7 +77,7 @@ public class EventsService {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOAD_FOLDER + newFilename);
             Files.write(path, bytes);
-            return newFilename;
+            return "/api/events/image/" +newFilename;
         } catch (IOException e) {
             throw new RuntimeException("Could not upload file: " + e.getMessage());
         }
@@ -79,6 +86,12 @@ public class EventsService {
     public EventResponseDto participateToEvent(EventEntity eventEntity, Long userId) {
         List<EventParticipant> participants = eventEntity.getParticipants();
         participants.add(new EventParticipant(new EventParticipantPk(eventEntity.getId(), userId), eventEntity));
+        return EventResponseDto.fromEntity(repository.save(eventEntity));
+    }
+
+    public EventResponseDto removeParticipationFromEvent(EventEntity eventEntity, Long userId) {
+        List<EventParticipant> participants = eventEntity.getParticipants();
+        participants.removeIf(it -> it.getPk().getUserId().equals(userId));
         return EventResponseDto.fromEntity(repository.save(eventEntity));
     }
 

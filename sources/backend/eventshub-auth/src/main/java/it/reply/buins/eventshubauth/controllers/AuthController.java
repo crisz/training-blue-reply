@@ -13,6 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 @RestController
 @Controller
 @RequestMapping("/auth")
@@ -37,7 +42,12 @@ public class AuthController {
         UserEntity user = authService.login(authRequest);
         HttpHeaders headers = new HttpHeaders();
         String jwt = JwtUtils.generateToken(user.getUsername(), user.getId());
-        headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/; SameSite=None; Secure;");
+        ZonedDateTime expirationTime = ZonedDateTime.now(ZoneOffset.UTC).plusHours(1);
+        String expires = DateTimeFormatter.RFC_1123_DATE_TIME
+                .withLocale(Locale.ITALY)
+                .format(expirationTime);
+
+        headers.add(HttpHeaders.SET_COOKIE, "JWT=" + jwt + "; HttpOnly; Path=/; SameSite=None; Secure; Expires="+expires);
         return ResponseEntity.ok().headers(headers).body(AuthResponse
                 .builder()
                 .username(user.getUsername())

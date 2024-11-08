@@ -1,7 +1,9 @@
 <div class="containerModal">
     <div class="modal-title">DETTAGLIO EVENTO</div>
     <mat-card>
-        <img mat-card-image [src]="imageEvent" alt="Event Image">
+        <div class="image-container">
+          <img class="event-detail-image" mat-card-image [src]="imageEvent" alt="Event Image">
+        </div>
         <mat-card-title>{{event?.title}}</mat-card-title>
         <mat-card-subtitle>Luogo: {{event?.place}}</mat-card-subtitle>
         <mat-card-content>
@@ -9,7 +11,12 @@
           <p><strong>Numero dei partecipanti:</strong> {{event?.participantIds?.length}}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button (click)="partecipate(event!)" mat-raised-button color="primary">Partecipa</button>
+          <ng-container *ngIf="isUserRegistered(event!); else notRegistered">
+            <button (click)="removeParticipation(event!)" mat-raised-button color="primary">Rimuovi partecipazione</button>
+          </ng-container>
+          <ng-template #notRegistered>
+            <button (click)="participate(event!)" mat-raised-button color="primary">Partecipa</button>
+          </ng-template>
         </mat-card-actions>
       </mat-card>
 </div>

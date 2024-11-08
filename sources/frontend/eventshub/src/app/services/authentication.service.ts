@@ -6,9 +6,6 @@ import { UserObj } from '../models/user';
 @Injectable({
   providedIn: 'root',
 })
-
-
-
 export class AuthenticationService {
   
   constructor(private httpClient: HttpClient) {
@@ -30,7 +27,8 @@ export class AuthenticationService {
     }));
   }
 
-  setUserLogged(user : UserObj){
+  setUserLogged(user : UserObj) {
+    // convertire in cookie con scadenza 1h
     sessionStorage.setItem('user',JSON.stringify(user));
   }
 

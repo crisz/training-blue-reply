@@ -20,48 +20,42 @@ export class EventDetailModalComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined;
 
-  public event : Event | undefined;
+  public event: Event | undefined;
   public imageEvent: string | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { event: Event },private eventService: EventsService,private _snackBar : MatSnackBar,public dialogRef: MatDialogRef<EventDetailModalComponent>) {}
 
   ngOnInit(){
     this.event = this.data.event;
-    if (this.event.imageUrl.startsWith('http://') || this.event.imageUrl.startsWith('https://')) {
-      // If imageUrl is a web address, use it directly
-      this.imageEvent = this.event.imageUrl;
-    } else{
-      this.eventService.getEventImage(this.event.imageUrl).then(response =>{
-        this.imageEvent = URL.createObjectURL(response);
-      })
-    }  
+    this.imageEvent = this.event.imageUrl;
   }
 
-  partecipate(item : Event){
-    //if(!this.isUserRegistered(item)){
-      this.eventService.eventPartecipate(item).then(res =>{
-        if(res){
-          this._snackBar.open("Ti sei inscritto all'evento "+item.title+"", "OK");
-          this.closeModal();
-        }
-      });
-    //}
+  participate(item: Event){
+    this.eventService.eventParticipate(item).then(res =>{
+      if(res){
+        this._snackBar.open("Ti sei iscritto all'evento "+item.title+"", "OK");
+        this.closeModal();
+      }
+    });
+  }
+
+  removeParticipation(item: Event){
+    this.eventService.eventRemoveParticipation(item).then(res =>{
+      if (res) {
+        this._snackBar.open("Ti sei rimosso dall'evento "+item.title+"", "OK");
+        this.closeModal();
+      }
+    });
   }
 
   closeModal(){
     this.dialogRef.close({ success: true });
   }
 
-  isUserRegistered(item : Event){
-    let myEvent = item.participantIds?.find(elem => {
-      return elem == this.userData?.id;
+  public isUserRegistered(item: Event): boolean {
+    return !!item.participantIds?.find(elem => {
+      return elem === this.userData?.id;
     })
-    if(myEvent){
-      return true;
-    }
-    else{
-      return false;
-    }
   }
 
 }

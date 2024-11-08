@@ -11,19 +11,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.LinkedList;
 import java.util.List;
 import java.sql.Date;
+import java.util.Set;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventMultiPartPayloadDto {
+public class EventRequestDto {
 
     private Long id;
     private String title;
     private String description;
     private String place;
-    private MultipartFile image;  // MultipartFile for the image
     private Date startDate;
     private Date endDate;
 
@@ -40,9 +40,9 @@ public class EventMultiPartPayloadDto {
         List<EventParticipant> participants = this.participants != null ? this.participants : new LinkedList<>();
 
         if (this.id != null) {
-            return new EventEntity(id, title, description, place, imageUrl, userId, startDate, endDate, participants);
+            return new EventEntity(id, title, description, place, imageUrl, userId, startDate, endDate, participants, Set.of());
         }
 
-        return new EventEntity(null, title, description, place, imageUrl, userId, startDate, endDate, participants);
+        return new EventEntity(null, title, description, place, imageUrl, userId, startDate, endDate, participants, Set.of());
     }
 }

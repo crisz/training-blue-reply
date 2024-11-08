@@ -5,7 +5,7 @@ import { UserState } from '../../../state/user-state/user.state';
 import { UserObj } from '../../models/user';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { SharedModule } from '../../shared/shared.module';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { MatDialog } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { EventAction } from '../../../state/event-state/event.action';
@@ -19,6 +19,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventDetailModalComponent } from '../../modal/event-detail-modal/event-detail-modal.component';
 import { filter } from 'rxjs/operators';
+import { EventsService } from '../../services/events.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-list',
@@ -31,7 +33,7 @@ import { filter } from 'rxjs/operators';
 export class EventListComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined;
-  @SelectSnapshot(EventState.getEventData) public eventDataList: Event[] | undefined;
+  @Select(EventState.getEventData) public eventDataList!: Observable<Event[] | undefined>;
   @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
 
   readonly dialog = inject(MatDialog);
@@ -40,6 +42,8 @@ export class EventListComponent {
   readonly store = inject(Store);
   readonly dialogService = inject(DialogService);
   public isLoading: boolean = false;
+
+  constructor(private eventsService: EventsService) {}
 
   ngOnInit() {
     const user = this.authService.getUserLogged();
@@ -80,5 +84,20 @@ export class EventListComponent {
       .subscribe(() => {
         this.loadEvents();
     });
+  }
+
+  // TODO: to utils
+  public isUserRegistered(item: Event): boolean {
+    return !!item.participantIds?.find(elem => {
+      return elem === this.userData?.id;
+    })
+  }
+
+  participate(item: Event){
+    this.eventsService.eventParticipate(item);
+  }
+
+  removeParticipation(item: Event){
+    this.eventsService.eventRemoveParticipation(item);
   }
 }

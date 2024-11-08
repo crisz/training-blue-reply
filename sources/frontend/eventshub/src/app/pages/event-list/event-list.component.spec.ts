@@ -33,7 +33,7 @@ describe('EventListComponent', () => {
     const eventServiceMock = {
       retrieveAllEvents: jest.fn(),
       retrieveMyEvents: jest.fn(),
-      eventPartecipate: jest.fn(),
+      eventParticipate: jest.fn(),
     };
 
     const routerMock = {

@@ -1,6 +1,7 @@
 package it.reply.buins.eventshubevents.controllers;
 
-import it.reply.buins.eventshubevents.dto.EventMultiPartPayloadDto;
+import it.reply.buins.eventshubevents.dto.EventRequestDto;
+import it.reply.buins.eventshubevents.dto.EventRequestMultipartDto;
 import it.reply.buins.eventshubevents.dto.EventResponseDto;
 import it.reply.buins.eventshubevents.entities.EventEntity;
 import it.reply.buins.eventshubevents.services.EventsService;
@@ -60,20 +61,35 @@ public class EventsController {
     }
 
 
-    @PostMapping
-    public EventResponseDto postEvent(
+    @PostMapping("/multipart")
+    public EventResponseDto postEventWithImage(
             HttpServletRequest request,
-            @ModelAttribute EventMultiPartPayloadDto event
+            @ModelAttribute EventRequestMultipartDto event
     ) {
-        if (event.getTitle() == null) throw new RuntimeException("Title is required");
-        if (event.getDescription() == null) throw new RuntimeException("Description is required");
-        if (event.getPlace() == null) throw new RuntimeException("Place is required");
+        checkEventValidity(event);
         String token = getTokenFromCookies(request.getCookies());
         Long userId = JwtUtils.getUserIdFromToken(token);
 
         return eventsService.createEvent(event, userId);
     }
 
+    @PostMapping
+    public EventResponseDto postEventWithoutImage(
+            HttpServletRequest request,
+            @ModelAttribute EventRequestDto event
+    ) {
+        checkEventValidity(event);
+        String token = getTokenFromCookies(request.getCookies());
+        Long userId = JwtUtils.getUserIdFromToken(token);
+
+        return eventsService.createEvent(event, userId);
+    }
+
+    private void checkEventValidity(EventRequestDto event) {
+        if (event.getTitle() == null) throw new RuntimeException("Title is required");
+        if (event.getDescription() == null) throw new RuntimeException("Description is required");
+        if (event.getPlace() == null) throw new RuntimeException("Place is required");
+    }
 
     @PostMapping("/{eventId}/participate")
     public EventResponseDto participateToEvent(
@@ -90,6 +106,27 @@ public class EventsController {
         }
 
         return eventsService.participateToEvent(event.get(), userId);
+    }
+
+    @PostMapping("/{eventId}/removeParticipation")
+    public EventResponseDto removeParticipationFromEvent(
+            HttpServletRequest request,
+            @PathVariable Long eventId
+    ) {
+        String token = getTokenFromCookies(request.getCookies());
+        Long userId = JwtUtils.getUserIdFromToken(token);
+
+        Optional<EventEntity> event = eventsService.getEventById(eventId);
+
+        if (event.isEmpty()) {
+            throw new RuntimeException("The event with id " + eventId + " does not exist");
+        }
+
+        if (event.get().getParticipants().stream().filter(it -> it.getPk().getUserId().equals(userId)).toList().size() != 1) {
+            throw new RuntimeException("You are not participating to event " + eventId);
+        }
+
+        return eventsService.removeParticipationFromEvent(event.get(), userId);
     }
 
     @GetMapping("/image/{filename}")

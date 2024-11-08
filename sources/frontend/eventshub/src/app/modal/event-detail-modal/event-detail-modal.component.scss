@@ -13,3 +13,14 @@
   border-bottom: 0.13rem solid #ccc;
   margin-bottom: 1.25rem;
 }
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  .event-detail-image {
+    max-height: 400px;
+    max-width: 300px;
+    aspect-ratio: 1;
+  }
+}
