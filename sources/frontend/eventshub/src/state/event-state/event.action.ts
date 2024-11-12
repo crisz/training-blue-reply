@@ -27,4 +27,9 @@ export namespace EventAction {
     static readonly type = '[Event] Partecipate event';
     constructor(public event: Event) {}
   }
+
+  export class RemoveParticipate {
+    static readonly type = '[Event] Remove partecipation event';
+    constructor(public event: Event) {}
+  }
 }

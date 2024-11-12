@@ -93,6 +93,30 @@ export class EventState {
         )
     }
 
+    @Action(EventAction.RemoveParticipate)
+    removePartecipatation(ctx: StateContext<any>,action: EventAction.EventParticipate) {
+      const event = action.event; 
+      return from(this.eventService.eventRemoveParticipation(event))
+        .pipe(
+          tap((updatedEvent: Event) => {
+            const currentState = ctx.getState();
+      
+            // Aggiorna o aggiungi l'evento aggiornato in `publicEvents`
+            const updatedPublicEvents = currentState.publicEvents.map((e: { id: string | null; }) => 
+              e.id === updatedEvent.id ? updatedEvent : e
+            );
+            // Aggiorna lo stato
+            ctx.patchState({
+              publicEvents: updatedPublicEvents
+            });
+          }),
+          catchError((error: any) => {
+            // Handle the error accordingly or rethrow
+            throw error;
+          })
+        )
+    }
+
     @Selector()
     static getEventData(state: IEventState) {
       return state?.publicEvents;

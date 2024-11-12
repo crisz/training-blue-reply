@@ -98,6 +98,6 @@ export class EventListComponent {
   }
 
   removeParticipation(item: Event){
-    this.eventsService.eventRemoveParticipation(item);
+    this.store.dispatch(new EventAction.RemoveParticipate(item));
   }
 }
