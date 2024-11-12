@@ -22,4 +22,9 @@ export namespace EventAction {
     static readonly type = '[Event] Fetch my Events';
     constructor() {}
   }
+
+  export class EventParticipate {
+    static readonly type = '[Event] Partecipate event';
+    constructor(public event: Event) {}
+  }
 }

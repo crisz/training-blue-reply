@@ -34,7 +34,7 @@ export class EventListComponent {
 
   @SelectSnapshot(UserState.getUserData) public userData: UserObj | undefined;
   @Select(EventState.getEventData) public eventDataList!: Observable<Event[] | undefined>;
-  @SelectSnapshot(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
+  @Select(EventState.getMyEventData) public eventMyDataList: Event[] | undefined;
 
   readonly dialog = inject(MatDialog);
   readonly router = inject(Router);
@@ -94,7 +94,7 @@ export class EventListComponent {
   }
 
   participate(item: Event){
-    this.eventsService.eventParticipate(item);
+    this.store.dispatch(new EventAction.EventParticipate(item));
   }
 
   removeParticipation(item: Event){

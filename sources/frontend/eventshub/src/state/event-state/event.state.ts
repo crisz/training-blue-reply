@@ -1,4 +1,4 @@
-import { IEventState } from "../../app/models/event";
+import { Event, IEventState } from "../../app/models/event";
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { EventAction } from "./event.action";
@@ -65,6 +65,32 @@ export class EventState {
             throw error;
           })
         );
+    }
+
+    @Action(EventAction.EventParticipate)
+    eventPartecipate(ctx: StateContext<any>,action: EventAction.EventParticipate) {
+      const event = action.event; 
+      return from(this.eventService.eventParticipate(event))
+        .pipe(
+          tap((updatedEvent: Event) => {
+            const currentState = ctx.getState();
+      
+            // Aggiorna o aggiungi l'evento aggiornato in `publicEvents`
+            const updatedPublicEvents = currentState.publicEvents.map((e: { id: string | null; }) => 
+              e.id === updatedEvent.id ? updatedEvent : e
+            );
+            // Aggiorna lo stato
+            ctx.patchState({
+              publicEvents: updatedPublicEvents
+            });
+      
+            console.log("Success: Event updated in both publicEvents and myEvents");
+          }),
+          catchError((error: any) => {
+            // Handle the error accordingly or rethrow
+            throw error;
+          })
+        )
     }
 
     @Selector()
