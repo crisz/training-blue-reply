@@ -5,6 +5,7 @@ import { EventAction } from "./event.action";
 import { produce } from "immer";
 import { EventsService } from "../../app/services/events.service";
 import { catchError, from, tap } from "rxjs";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const DEFAULT_STATE: IEventState = {
     publicEvents:[],
@@ -18,7 +19,7 @@ const DEFAULT_STATE: IEventState = {
 @Injectable()
 export class EventState {
 
-  constructor(private eventService: EventsService,private store: Store) {}
+  constructor(private eventService: EventsService,private store: Store,private _snackBar : MatSnackBar) {}
   
     @Action(EventAction.SetEventDataList)
     public setEventDataList({ getState, setState }: StateContext<IEventState>,  { payload }: EventAction.SetEventDataList): any {
@@ -83,8 +84,7 @@ export class EventState {
             ctx.patchState({
               publicEvents: updatedPublicEvents
             });
-      
-            console.log("Success: Event updated in both publicEvents and myEvents");
+            this._snackBar.open("Ti sei iscritto all'evento "+event.title+"", "OK");
           }),
           catchError((error: any) => {
             // Handle the error accordingly or rethrow
@@ -109,6 +109,7 @@ export class EventState {
             ctx.patchState({
               publicEvents: updatedPublicEvents
             });
+            this._snackBar.open("Ti sei rimosso dall'evento "+event.title+"", "OK");
           }),
           catchError((error: any) => {
             // Handle the error accordingly or rethrow

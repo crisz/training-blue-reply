@@ -7,6 +7,8 @@ import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { UserState } from '../../../state/user-state/user.state';
 import { UserObj } from '../../models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventAction } from '../../../state/event-state/event.action';
+import {  Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-event-detail-modal',
@@ -23,7 +25,7 @@ export class EventDetailModalComponent {
   public event: Event | undefined;
   public imageEvent: string | undefined;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { event: Event },private eventService: EventsService,private _snackBar : MatSnackBar,public dialogRef: MatDialogRef<EventDetailModalComponent>) {}
+  constructor(private store : Store ,@Inject(MAT_DIALOG_DATA) public data: { event: Event },private eventService: EventsService,private _snackBar : MatSnackBar,public dialogRef: MatDialogRef<EventDetailModalComponent>) {}
 
   ngOnInit(){
     this.event = this.data.event;
@@ -31,21 +33,15 @@ export class EventDetailModalComponent {
   }
 
   participate(item: Event){
-    this.eventService.eventParticipate(item).then(res =>{
-      if(res){
-        this._snackBar.open("Ti sei iscritto all'evento "+item.title+"", "OK");
-        this.closeModal();
-      }
+    this.store.dispatch(new EventAction.EventParticipate(item)).subscribe(elem =>{
+      this.closeModal();
     });
   }
 
   removeParticipation(item: Event){
-    this.eventService.eventRemoveParticipation(item).then(res =>{
-      if (res) {
-        this._snackBar.open("Ti sei rimosso dall'evento "+item.title+"", "OK");
-        this.closeModal();
-      }
-    });
+    this.store.dispatch(new EventAction.RemoveParticipate(item)).subscribe(elem =>{
+      this.closeModal();
+    });;
   }
 
   closeModal(){
