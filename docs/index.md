@@ -6,6 +6,7 @@ nav_order: 1
 ---
 # Introduzione
 
+
 Spesso la difficoltà di chi si affaccia in una nuova realtà aziendale è comprendere quali sono i concetti chiave e gli argomenti da conoscere per affrontare la quotidianità del progetto in cui sia lavora. 
 Il famoso “periodo di prova” mira a formare sulle tecnologie che poi si andranno ad utilizzare nei progetti , ma a volte può risultare molto dispersivo e spesso capita di dover affrontare questo periodo leggendo libri su libri che nella pratica non serviranno a nulla.
 
