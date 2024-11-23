@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /teoria/backend
-title: Elementi Teorici Backend
+title: Tecnologie di Backend
 parent: Elementi Teorici
 nav_order: 3
 ---

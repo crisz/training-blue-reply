@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /teoria/frontend
-title: Elementi Teorici Frontend
+title: Tecnologie di Frontend
 parent: Elementi Teorici
 nav_order: 3
 ---
