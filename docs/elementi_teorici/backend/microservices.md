@@ -2,7 +2,7 @@
 layout: page
 title:  Architettura a Microservizi
 permalink: /teoria/backend/microservices
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Architettura a Microservizi

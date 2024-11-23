@@ -2,7 +2,7 @@
 layout: page
 title:  Applicazione di Design Patterns Utili
 permalink: /teoria/backend/design-patterns
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Applicazione di Design Patterns Utili

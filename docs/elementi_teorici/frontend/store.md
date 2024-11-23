@@ -2,7 +2,7 @@
 layout: page
 title:  L'uso dello Store
 permalink: /teoria/frontend/store
-parent: Elementi Teorici Frontend
+parent: Tecnologie di Frontend
 ---
 
 # L'uso dello Store

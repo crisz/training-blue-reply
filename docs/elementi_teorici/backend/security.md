@@ -2,7 +2,7 @@
 layout: page
 title:  Best Practices di Sicurezza
 permalink: /teoria/backend/sicurezza-password-secure-coding
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Best Practices di Sicurezza per la Gestione delle Password

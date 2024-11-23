@@ -2,7 +2,7 @@
 layout: page
 title:  Layout in CSS
 permalink: /teoria/frontend/scss
-parent: Elementi Teorici Frontend
+parent: Tecnologie di Frontend
 ---
 
 # Layout in CSS

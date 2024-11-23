@@ -2,7 +2,7 @@
 layout: page
 title:  Unit Test
 permalink: /teoria/frontend/unit-test
-parent: Elementi Teorici Frontend
+parent: Tecnologie di Frontend
 ---
 
 # Unit Test

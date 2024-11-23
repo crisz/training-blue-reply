@@ -2,7 +2,7 @@
 layout: page
 title:  Test Automatizzati
 permalink: /teoria/backend/test-automatizzati
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Test Automatizzati

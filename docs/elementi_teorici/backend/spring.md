@@ -2,7 +2,7 @@
 layout: page
 title:  Spring Framework
 permalink: /teoria/backend/spring
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Spring Framework

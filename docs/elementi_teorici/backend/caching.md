@@ -2,7 +2,7 @@
 layout: page
 title:  Configurazione e Utilizzo di Cache
 permalink: /teoria/backend/cache
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # Configurazione e Utilizzo di Cache

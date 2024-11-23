@@ -2,7 +2,7 @@
 layout: page
 title:  RESTful Web Services
 permalink: /teoria/backend/restful
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # RESTful Web Services

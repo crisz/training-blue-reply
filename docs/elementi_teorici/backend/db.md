@@ -2,7 +2,7 @@
 layout: page
 title:  SQL e NoSQL
 permalink: /teoria/backend/sql-nosql
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # SQL e NoSQL

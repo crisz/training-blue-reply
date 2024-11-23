@@ -2,7 +2,7 @@
 layout: page
 title:  WebSockets
 permalink: /teoria/backend/websockets
-parent: Elementi Teorici Backend
+parent: Tecnologie di Backend
 ---
 
 # WebSockets
