@@ -1,8 +1,8 @@
 ---
 layout: page
-title:  Best Practices di Sicurezza
-permalink: /teoria/backend/sicurezza-password-secure-coding
-parent: Tecnologie di Backend
+title: Elementi di Sicurezza
+permalink: /teoria/sicurezza
+parent: Elementi Teorici
 ---
 
 # Best Practices di Sicurezza per la Gestione delle Password
