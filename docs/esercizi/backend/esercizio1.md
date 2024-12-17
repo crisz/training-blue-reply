@@ -50,7 +50,7 @@ Aggiungere il campo "categoria" nell’Entity `Event`.
 
 
 
-```java  
+<pre><code class="language-java">
 @Entity  
 public class Event {  
     @Id  
@@ -59,8 +59,7 @@ public class Event {
     private String name;  
     private String categoria;
 }  
-```  
-
+</code></pre>
 
 
 </details>  
