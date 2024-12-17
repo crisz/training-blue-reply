@@ -44,77 +44,82 @@ MyBatis
 
 ## Risoluzione  
 <details>  
-  <summary>Visualizza soluzione</summary>  
-  <ol>  
-    <li>  
-      **Modifica del servizio POST**  
-      - Aggiungere il campo "categoria" nell’Entity `Event`.  
-      ```java  
-      @Entity  
-      public class Event {  
-          @Id  
-          @GeneratedValue(strategy = GenerationType.IDENTITY)  
-          private Long id;  
-          private String name;  
-          private String categoria; // Nuovo campo  
-          // Getters e Setters  
-      }  
-      ```  
-      - Modificare il Controller per gestire la nuova proprietà.  
-    </li>  
+<summary>Visualizza soluzione</summary>  
+<ol>  
+<li>  
+<b>Modifica del servizio POST</b><br>
+Aggiungere il campo "categoria" nell’Entity `Event`.  
 
-    <li>  
-      **Modifica del servizio GET**  
-      - Restituire il campo "categoria" dal repository JPA.  
-      ```java  
-      @GetMapping("/events")  
-      public List<Event> getAllEvents() {  
-          return eventRepository.findAll();  
-      }  
-      ```  
-    </li>  
+```java  
+@Entity  
+public class Event {  
+    @Id  
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    private Long id;  
+    private String name;  
+    private String categoria;
+}  
+```  
 
-    <li>  
-      **Nuovo servizio PATCH**  
-      - Utilizzare MyBatis per l’aggiornamento del campo categoria.  
-      ```java  
-      @Mapper  
-      public interface EventMapper {  
-          @Update("UPDATE event SET categoria = #{categoria} WHERE id = #{id}")  
-          void updateCategory(@Param("id") Long id, @Param("categoria") String categoria);  
-      }  
-      ```  
-      - Implementare il Controller per chiamare il metodo MyBatis.  
-      ```java  
-      @PatchMapping("/event/{id}")  
-      public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody String categoria) {  
-          eventMapper.updateCategory(id, categoria);  
-          return ResponseEntity.ok("Categoria aggiornata");  
-      }  
-      ```  
-    </li>  
+</li>  
 
-    <li>  
-      **Integration Test**  
-      - Testare l’endpoint `PATCH /event/{id}` con dati simulati.  
-      ```java  
-      @SpringBootTest  
-      @AutoConfigureMockMvc  
-      class EventControllerTest {  
+<li>  
+    <b>Modifica del servizio GET</b>
+    - Restituire il campo "categoria" dal repository JPA. 
 
-          @Autowired  
-          private MockMvc mockMvc;  
+```java  
+@GetMapping("/events")  
+public List<Event> getAllEvents() {  
+    return eventRepository.findAll();  
+}  
+```  
+</li>  
 
-          @Test  
-          void testUpdateCategory() throws Exception {  
-              mockMvc.perform(patch("/event/1")  
-                      .contentType(MediaType.APPLICATION_JSON)  
-                      .content("\"NuovaCategoria\""))  
-                  .andExpect(status().isOk())  
-                  .andExpect(content().string("Categoria aggiornata"));  
-          }  
-      }  
-      ```  
-    </li>  
-  </ol>  
+<li>  
+<b>Nuovo servizio PATCH</b>
+- Utilizzare MyBatis per l’aggiornamento del campo categoria.  
+
+```java  
+@Mapper  
+public interface EventMapper {  
+    @Update("UPDATE event SET categoria = #{categoria} WHERE id = #{id}")  
+    void updateCategory(@Param("id") Long id, @Param("categoria") String categoria);  
+}  
+```  
+
+- Implementare il Controller per chiamare il metodo MyBatis.  
+
+```java  
+    @PatchMapping("/event/{id}")  
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody String categoria) {  
+        eventMapper.updateCategory(id, categoria);  
+        return ResponseEntity.ok("Categoria aggiornata");  
+    }  
+```  
+</li>  
+
+<li>  
+   <b>Integration Test</b>
+- Testare l’endpoint `PATCH /event/{id}` con dati simulati. 
+
+```java  
+    @SpringBootTest  
+    @AutoConfigureMockMvc  
+    class EventControllerTest {  
+
+        @Autowired  
+        private MockMvc mockMvc;  
+
+        @Test  
+        void testUpdateCategory() throws Exception {  
+            mockMvc.perform(patch("/event/1")  
+                    .contentType(MediaType.APPLICATION_JSON)  
+                    .content("\"NuovaCategoria\""))  
+                .andExpect(status().isOk())  
+                .andExpect(content().string("Categoria aggiornata"));  
+        }  
+    }  
+```  
+</li>  
+</ol>  
 </details>  
