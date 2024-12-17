@@ -1,9 +1,9 @@
+---
 layout: page  
 title: Ex1 ~ Spring & JPA  
 permalink: /esercizi/backend/esercizio1  
 parent: Esercizi Backend  
 nav_order: 1  
-
 ---
 
 # Esercizio 1  

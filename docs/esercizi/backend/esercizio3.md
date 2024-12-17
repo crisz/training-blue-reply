@@ -1,10 +1,11 @@
+---
 layout: page  
 title: Ex3 ~ Validazione Input e Sicurezza  
 permalink: /esercizi/backend/esercizio3  
 parent: Esercizi Backend  
 nav_order: 3  
-
 ---
+
 
 # Esercizio 3  
 
