@@ -45,8 +45,6 @@ MyBatis
 ## Risoluzione  
 <details>  
 <summary>Visualizza soluzione</summary>  
-<ol>  
-<li>  
 <b>Modifica del servizio POST</b><br>
 Aggiungere il campo "categoria" nell’Entity `Event`.  
 
@@ -63,8 +61,6 @@ public class Event {
 }  
 ```  
 
-</li>  
 
-</ol>  
 
 </details>  
