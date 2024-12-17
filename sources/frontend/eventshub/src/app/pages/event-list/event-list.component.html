@@ -66,7 +66,7 @@
         <mat-card
           class="example-card"
           appearance="outlined"
-          *ngFor="let event of eventMyDataList || []"
+          *ngFor="let event of (eventMyDataList | async) || []"
           (click)="openDetailModal(event)"
         >
           <mat-card-header>
@@ -86,7 +86,7 @@
         </mat-card>
   
         <div
-          *ngIf="eventMyDataList?.length === 0"
+          *ngIf="(eventMyDataList | async)?.length === 0"
           class="no-events"
         >
           Non ci sono eventi
