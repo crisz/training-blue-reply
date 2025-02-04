@@ -335,3 +335,70 @@ public class UserService {
 }
 ```
 
+## Spring Bean
+
+I bean di configurazione in Spring sono componenti gestiti dal framework che permettono di definire e personalizzare la creazione degli oggetti utilizzati nell'applicazione. In pratica, anziché istanziare manualmente le classi in vari punti del codice, si definisce in un'unica classe (annotata con @Configuration) come devono essere creati e configurati questi oggetti, utilizzando metodi annotati con @Bean.
+
+Ad esempio, se hai bisogno di configurare un client per effettuare chiamate HTTP, potresti definire un bean per il RestTemplate in questo modo:
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate;
+    }
+}
+```
+
+
+In questo modo, la classe `RestTemplate` verrà creata una sola volta al lancio dell'applicazione, e potrà essere richiesta dovunque attraverso `@Autowired`:
+
+```java
+@Autowired
+private final RestTemplate myRestTemplate; // Ottengo l'istanza che è stata creata all'avvio di Spring
+```
+
+Un altro esempio comune riguarda la configurazione di componenti per la sicurezza. Ad esempio, in un'applicazione che gestisce l'autenticazione e la crittografia delle password, potresti definire un bean per il PasswordEncoder di Spring Security:
+
+```java
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+}
+```
+
+In questo caso, la classe SecurityConfig definisce un bean che, una volta registrato nel contesto Spring, può essere iniettato in qualsiasi componente (come un service di gestione utenti) o richiesto da Spring stesso (sostituendo il suo default) per codificare o verificare le password.
+
+Il vantaggio di questo approccio è che tutta la configurazione necessaria viene centralizzata e gestita in un unico posto. Questo rende il codice più modulare, facilmente testabile e flessibile, poiché se in futuro dovessi cambiare l'implementazione di un certo servizio, basterà modificare la configurazione senza dover alterare il codice che lo utilizza. Inoltre, la possibilità di iniettare le dipendenze in modo automatico, grazie alla Dependency Injection, riduce l'accoppiamento tra i componenti dell'applicazione, facilitando la manutenzione e l'evoluzione del progetto.
+
+## Spring Autoconfigure
+
+Spring Boot analizza il classpath, le configurazioni presenti e l’ambiente di esecuzione per impostare automaticamente i bean e le impostazioni necessarie per far funzionare l’applicazione.
+
+Con l’auto-configurazione, ad esempio, se Spring Boot rileva la presenza di certe librerie (come quelle per JDBC, JPA, o un server web integrato), configura automaticamente i relativi bean (come un DataSource, EntityManagerFactory, o un Embedded Servlet Container) senza che tu debba scrivere esplicitamente tutta quella configurazione. Questo meccanismo è abilitato di default grazie all’annotazione @SpringBootApplication, che include @EnableAutoConfiguration.
+
+L’autoconfigure sfrutta delle condizioni (mediante annotazioni come @ConditionalOnClass, @ConditionalOnMissingBean, ecc.) per capire se deve o meno attivare una configurazione automatica. Ad esempio, se non hai definito un bean personalizzato per il DataSource, Spring Boot provvederà a crearne uno basato sulle proprietà configurate nel file application.properties o application.yml.
+
+Esempio pratico:
+Se includi la dipendenza spring-boot-starter-data-jpa e configuri le proprietà di connessione nel tuo file di configurazione, Spring Boot configurerà automaticamente un DataSource e il relativo EntityManagerFactory, permettendoti di iniziare a usare i repository senza configurazioni aggiuntive.
+
+In sintesi, l’autoconfigure rende lo sviluppo più rapido e semplice, fornendo impostazioni predefinite che funzionano bene per la maggior parte dei casi. Tuttavia, se serve una configurazione personalizzata, puoi sempre intervenire e disabilitare o sovrascrivere i bean definiti automaticamente.
+
+## Application properties
+L'application properties è il file (solitamente application.properties o application.yml) in cui si definiscono le configurazioni di base dell'applicazione. Qui puoi specificare parametri come la porta su cui far partire il server, le credenziali del database, le impostazioni di logging, e molto altro. Questo file funge da punto centrale per configurare l'ambiente dell'applicazione in maniera semplice e centralizzata.
+
+È possibile definire un application properties specifico per ogni profilo
+
+## Profili 
+
+I profili sono un meccanismo che permette di definire set di configurazioni specifici per diversi ambienti o situazioni (ad esempio, sviluppo, test, produzione). In pratica, puoi avere un file di configurazione predefinito e poi file specifici per ciascun profilo, come application-dev.properties o application-prod.properties. Durante l'avvio dell'applicazione, impostando il profilo attivo (di solito tramite la proprietà spring.profiles.active), Spring Boot caricherà le configurazioni relative a quel profilo, sovrascrivendo o integrando quelle predefinite.
+
+Ad esempio, potresti avere una configurazione per lo sviluppo in cui il database è in locale e una per la produzione in cui il database è ospitato su un server remoto. Utilizzando i profili, puoi passare facilmente da una configurazione all'altra senza modificare il codice, rendendo l'applicazione flessibile e adatta a diversi ambienti operativi.
