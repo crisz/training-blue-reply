@@ -1,13 +1,16 @@
 ---
 layout: page
-title:  Test Automatizzati
+title:  Test Automatici
 permalink: /teoria/backend/test-automatizzati
 parent: Tecnologie di Backend
 ---
 
-# Test Automatizzati
+# Test Automatici
 
-I test automatizzati sono una componente essenziale per garantire la qualità e l'affidabilità del software. Attraverso vari tipi di test, possiamo verificare che ogni parte del sistema funzioni correttamente sia in isolamento che in integrazione con altri componenti. In questa guida vedremo i principali tipi di test automatizzati per il backend: Unit Testing, Integration Testing, End-to-end Testing, e Test di Performance e Stress Testing.
+Abbiamo scritto tanto codice e sembra funzionare... Ma come possiamo essere certi che tutto continuerà a girare correttamente nel tempo? Certo, i test manuali sono utili: esegui l’applicazione, clicchi qua e là, e tutto sembra andare bene. Ma cosa succede quando, dopo mesi, aggiungiamo nuove funzionalità o modifichiamo qualcosa? Siamo sicuri che non stiamo rompendo parti del codice già funzionante?  
+
+Ecco dove entrano in gioco i test automatici: ci permettono di verificare il corretto funzionamento del codice **senza dover ripetere manualmente le stesse operazioni ogni volta**. E se qualcosa si rompe? I test ce lo diranno subito!
+
 
 ## Cosa sono i Test e a Cosa Servono
 
@@ -18,144 +21,202 @@ I test possono avere diversi scopi, tra cui:
 - **Prevenzione di regressioni**: Identificare problemi introdotti da nuove modifiche al codice.
 - **Miglioramento della qualità**: Aumentare la stabilità e la qualità del software grazie a un feedback continuo.
 
-## Tipi di Test Automatizzati
+## Tipi di Test: Qual è la Differenza?  
+Non tutti i test sono uguali. Esistono vari tipi di test, ognuno con uno scopo ben preciso. Implementarli tutti aiuta a garantire che il software funzioni correttamente da ogni punto di vista.  
 
-I test automatizzati si dividono in varie categorie in base all'ambito di test e alla granularità:
+### 1. Unit Test (Test Unitari)  
+- **Scopo:** Testano **una singola unità** di codice, come un metodo o una classe.  
+- **Caratteristiche:** Veloci, isolati, facili da scrivere e mantenere.  
+- **Esempio:** Un test che verifica che il metodo `calcolaSconto` ritorni il valore corretto dato un certo prezzo e una percentuale di sconto.  
+- **Strumenti:** JUnit 5, Mockito.  
 
-1. **Unit Testing**: Test delle singole unità di codice (come classi o metodi).
-2. **Integration Testing**: Verifica dell'interazione tra più moduli o componenti.
-3. **End-to-end Testing**: Test del sistema completo, dall'inizio alla fine, come se fosse utilizzato da un utente.
-4. **Test di Performance e Stress Testing**: Valutazione del comportamento del sistema sotto carico, con simulazioni di numerosi utenti.
+**Perché sono importanti?**  
+Garantiscono che i mattoni fondamentali del software funzionino come previsto.  
 
-### Gerarchia dei Test
+---
 
-La gerarchia dei test può essere rappresentata come una **piramide dei test**, che indica la proporzione ideale di ogni tipo di test per garantire la qualità del software:
+### 2. Integration Test (Test di Integrazione)  
+- **Scopo:** Verificano che **più componenti lavorino correttamente insieme**.  
+- **Caratteristiche:** Testano flussi completi tra classi, servizi e repository, spesso utilizzando un database o API reali.  
+- **Esempio:** Verifica che `UserService` recuperi i dati corretti da un database.  
+- **Strumenti:** Spring Boot, Testcontainers.  
 
-1. **Unit Testing (base della piramide)**: La maggior parte dei test dovrebbe essere costituita da unit test, in quanto sono veloci, economici e offrono un feedback rapido.
-2. **Integration Testing**: Al livello intermedio, questi test garantiscono che i vari componenti funzionino correttamente insieme.
-3. **End-to-end Testing (cima della piramide)**: I test E2E sono più lenti e costosi, quindi dovrebbero essere limitati a coprire i flussi principali dell'applicazione.
-4. **Test di Performance e Stress Testing**: Questi test possono essere eseguiti periodicamente per assicurare che il sistema continui a funzionare correttamente sotto carico.
+**Differenza chiave con i Unit Test:**  
+- **Unit Test**: Componenti isolati con mock.  
+- **Integration Test**: Flussi reali tra componenti senza mock.  
 
-## Unit Testing
+---
 
-### **JUnit e Mockito**
+### 3. End-to-End Test (E2E)  
+- **Scopo:** Testano l’intero flusso dell’applicazione, **dalla UI al database**.  
+- **Caratteristiche:** Simulano il comportamento dell'utente, eseguendo l'applicazione come se fosse in produzione.  
+- **Esempio:** Un test che verifica che un utente possa registrarsi, accedere e visualizzare il proprio profilo.  
+- **Strumenti:** Selenium, Cypress, Playwright.  
 
-L'**Unit Testing** è il processo di testare singole unità di codice, come metodi o classi, per garantire che si comportino come previsto. In Java, gli strumenti più comuni per l'Unit Testing sono **JUnit** e **Mockito**.
+**Perché sono importanti?**  
+Garantiscono che tutte le parti del sistema funzionino insieme come previsto.  
 
-- **JUnit**: È una libreria per scrivere e eseguire test unitari in Java. Permette di verificare il comportamento dei singoli metodi e classi, fornendo annotazioni come `@Test` per identificare i metodi di test e `@Before` o `@After` per configurare e pulire l'ambiente di test.
+---
 
-  ```java
-  @Test
-  public void testCalcolaSomma() {
-      int risultato = Calcolatrice.somma(2, 3);
-      assertEquals(5, risultato);
-  }
-  ```
+### 4. Performance Test  
+- **Scopo:** Misurano la **velocità, stabilità e reattività** del sistema sotto carico.  
+- **Caratteristiche:** Simulano un grande numero di utenti o richieste simultanee.  
+- **Esempio:** Test che verifica che un’API risponda in meno di 300ms con 100 utenti simultanei.  
+- **Strumenti:** JMeter, Gatling, k6.  
 
-- **Mockito**: È una libreria per il mocking, che consente di creare oggetti fittizi (mock) per simulare il comportamento delle dipendenze durante i test. Questo è utile quando si vogliono isolare le unità di codice dalle loro dipendenze.
+**Perché sono importanti?**  
+Aiutano a identificare colli di bottiglia e a ottimizzare l’applicazione.  
 
-  ```java
-  @Test
-  public void testServizioConMock() {
-      ServizioDipendente mockServizio = mock(ServizioDipendente.class);
-      when(mockServizio.getDato()).thenReturn("dato simulato");
-      
-      ClasseSottoTest classe = new ClasseSottoTest(mockServizio);
-      String risultato = classe.esegui();
-      
-      assertEquals("dato simulato elaborato", risultato);
-  }
-  ```
+---
+### Altri Tipi di Test  
 
-## Integration Testing
+- **Security Test** – Simulano attacchi per scoprire falle di sicurezza (SQL Injection, XSS).  
+  *Strumenti:* OWASP ZAP, Burp Suite.  
 
-L'**Integration Testing** si concentra sulla verifica dell'interazione tra più componenti del sistema. A differenza dell'Unit Testing, l'obiettivo è garantire che le diverse parti del sistema lavorino insieme in modo corretto.
+- **Regression Test** – Ri-eseguono i test esistenti per assicurarsi che nuove modifiche non rompano funzionalità già presenti.  
+  *Strumenti:* JUnit, Selenium.  
 
-- Questi test vengono generalmente eseguiti su moduli che hanno dipendenze tra loro, come il database e il servizio di rete.
-- In Java, si può usare **Spring Boot Test** per eseguire test di integrazione in contesti di applicazioni Spring. Con annotazioni come `@SpringBootTest`, si può caricare l'intero contesto dell'applicazione e verificare che tutte le parti funzionino insieme.
+- **Smoke Test** – Verificano che l’app si avvii e le funzionalità principali siano operative dopo il deploy.  
+  *Strumenti:* Postman, JUnit.  
 
-  ```java
-  @SpringBootTest
-  public class IntegrazioneTest {
-      @Autowired
-      private UtenteService utenteService;
+- **Acceptance Test** – Validano che il software soddisfi i requisiti richiesti dal cliente, spesso scritti con i product owner.  
+  *Strumenti:* Cucumber, FitNesse.  
 
-      @Test
-      public void testCreaUtente() {
-          Utente utente = new Utente("Mario", "Rossi");
-          Utente salvato = utenteService.salva(utente);
-          assertNotNull(salvato.getId());
-      }
-  }
-  ```
+## Gerarchia dei Test
 
-## End-to-end Testing
+Immagina una piramide: la base è ampia e solida, mentre la cima è più stretta e leggera. Questa è l'immagine perfetta per rappresentare la **piramide dei test**, un concetto fondamentale nello sviluppo software.  
 
-L'**End-to-end (E2E) Testing** verifica il flusso completo dell'applicazione, simulando l'interazione di un utente dal frontend al backend.
+- **Alla base** troviamo i **Unit Test** – molti, veloci e semplici. Rappresentano la maggior parte dei test, coprono singole funzioni o metodi e garantiscono che ogni pezzo del codice funzioni in isolamento.  
 
-- Lo scopo degli E2E test è assicurarsi che tutte le parti del sistema - dal database, al backend, fino al frontend - lavorino insieme come previsto.
-- Strumenti come **Selenium** possono essere utilizzati per automatizzare i test del frontend, mentre per il backend si può utilizzare un tool come **Postman** o **Cypress** per simulare le richieste HTTP e verificare la risposta del sistema.
+- **Al centro** ci sono i **Test di Integrazione** – meno numerosi, ma cruciali per verificare che i diversi componenti dell'app lavorino bene insieme. Sono più lenti dei test unitari perché coinvolgono più parti del sistema.  
 
-  ```javascript
-  describe('Test End-to-End', () => {
-      it('Dovrebbe registrare un nuovo utente e loggarsi con successo', () => {
-          cy.visit('/register');
-          cy.get('input[name="username"]').type('mario_rossi');
-          cy.get('input[name="password"]').type('password123');
-          cy.get('button[type="submit"]').click();
-          
-          cy.url().should('include', '/dashboard');
-      });
-  });
-  ```
+- **In cima** troviamo i **Test End-to-End (E2E)** – pochi e complessi, simulano il comportamento dell'utente finale testando l'intero sistema dall'inizio alla fine. Sono i più lenti, ma garantiscono che tutto funzioni correttamente in uno scenario reale.  
 
-## Test di Performance e Stress Testing
+**Obiettivo della piramide?**  
+**Scrivere molti test unitari, meno test di integrazione e pochissimi E2E.** Questo garantisce velocità e affidabilità nei test, riducendo i tempi di esecuzione e mantenendo il sistema stabile e ben coperto.  
 
-### **JMeter**
+![Piramide dei Test](../../images/piramide_test.jpeg)  
+## Test in Spring Boot: Come Implementarli
 
-I **Test di Performance** e gli **Stress Testing** vengono utilizzati per valutare il comportamento del sistema sotto carico, garantendo che possa gestire un numero elevato di utenti o richieste senza degrado delle prestazioni.
+### 1. Unit Test in Spring Boot  
+I **Unit Test** in Spring Boot si concentrano su singole classi o metodi, come servizi (`Service`), controller (`Controller`) o repository. Vengono eseguiti **senza caricare il contesto Spring**, il che li rende rapidi ed efficienti.  
 
-- **JMeter**: È uno strumento open-source per eseguire test di carico e di performance. JMeter può simulare molteplici utenti che inviano richieste al server per verificare la risposta del sistema sotto diverse condizioni di carico.
+**Strumenti:**  
+- **JUnit 5** per definire i test.  
+- **Mockito** per simulare dipendenze (es. repository o altri servizi).  
 
-  - **Test di Performance**: Si misura il tempo di risposta del sistema sotto un carico normale per verificare se i requisiti di prestazione sono soddisfatti.
-  - **Stress Testing**: Il sistema viene portato oltre il carico massimo previsto per verificare come si comporta in condizioni estreme e quali sono i punti di rottura.
+**Esempio di Unit Test:**  
+```java
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
 
-  Esempio di configurazione di un test di performance con JMeter:
+    @Mock
+    private UserRepository userRepository;
 
-  - Creare un **Thread Group** che simuli un certo numero di utenti (ad esempio, 100 utenti simultanei).
-  - Aggiungere un **HTTP Request Sampler** per definire le richieste che gli utenti invieranno al server.
-  - Configurare **Listener** per raccogliere dati come tempi di risposta, throughput, e tassi di errore.
+    @InjectMocks
+    private UserService userService;
 
-  ```
-  Thread Group:
-    - Number of Threads (Users): 100
-    - Ramp-Up Period (seconds): 10
-  HTTP Request Sampler:
-    - Server Name or IP: example.com
-    - Path: /api/test
-  Listener:
-    - View Results Tree
-    - Summary Report
-  ```
+    @Test
+    void shouldReturnUserWhenIdIsValid() {
+        User user = new User(1L, "John Doe");
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-## Utilità, Vantaggi e Svantaggi dei Test Automatizzati
+        User result = userService.getUserById(1L);
 
-### **Utilità**
+        assertNotNull(result);
+        assertEquals("John Doe", result.getName());
+    }
+}
+```  
+**In questo test:**  
+- **@Mock** crea una versione simulata di `UserRepository`.  
+- **@InjectMocks** inietta il mock in `UserService`.  
+- **when...thenReturn** simula il comportamento del repository.  
 
-I test automatizzati garantiscono che il software funzioni correttamente durante tutto il ciclo di sviluppo, riducendo il rischio di errori introdotti durante l'evoluzione del codice. Forniscono inoltre un feedback rapido agli sviluppatori, migliorando l'efficienza del processo di sviluppo.
+I test unitari coprono la **logica di business** e garantiscono che ogni metodo faccia ciò che deve senza coinvolgere altre parti del sistema.  
 
-### **Vantaggi**
+---
 
-- **Qualità del Software**: I test automatizzati aiutano a mantenere una qualità elevata del codice grazie alla verifica continua.
-- **Rilevamento Precoce degli Errori**: Identificare e correggere i bug nelle fasi iniziali dello sviluppo riduce i costi di manutenzione.
-- **Documentazione del Codice**: I test possono servire come documentazione aggiuntiva per comprendere il comportamento atteso del sistema.
-- **Efficienza del Team**: Il feedback immediato riduce il tempo di debug e permette agli sviluppatori di concentrarsi su nuove funzionalità.
+### 2. Integration Test in Spring Boot  
+I **Test di Integrazione** verificano che più componenti lavorino insieme, come ad esempio un servizio che interagisce con un database tramite repository. A differenza dei test unitari, qui si carica il **contesto Spring reale** utilizzando l'annotazione `@SpringBootTest`.  
 
-### **Svantaggi**
+**Strumenti:**  
+- **@SpringBootTest** per caricare l'intero contesto Spring.  
+- **Testcontainers** per testare con database Dockerizzati.  
+- **H2** per eseguire test su database in memoria.  
 
-- **Costo Iniziale**: Scrivere test automatizzati richiede tempo e risorse iniziali. Può risultare costoso per piccoli progetti o team con risorse limitate.
-- **Manutenzione dei Test**: I test devono essere aggiornati ogni volta che il codice cambia, il che può aggiungere complessità e costi di manutenzione.
-- **Falsi Positivi/Negativi**: I test mal progettati possono produrre risultati falsi, sia positivi che negativi, riducendo l'affidabilità dei test stessi.
+**Esempio di Integration Test:**  
+```java
+@SpringBootTest
+class UserServiceIntegrationTest {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    void shouldRetrieveUserFromDatabase() {
+        User user = new User(1L, "John Doe");
+        userRepository.save(user);
+
+        User result = userService.getUserById(1L);
+
+        assertNotNull(result);
+        assertEquals("John Doe", result.getName());
+    }
+}
+```  
+**In questo test:**  
+- **@SpringBootTest** avvia l’intera applicazione.  
+- **@Autowired** inietta i bean reali (`UserService` e `UserRepository`).  
+- Il test simula un'operazione reale su database.  
+
+Gli integration test sono utili per validare **flussi tra componenti**, come la persistenza dei dati o chiamate a servizi REST.  
+
+---
+
+### 3. End-to-End (E2E) Test in Spring Boot  
+I **Test End-to-End** coprono l'intero ciclo di vita dell'applicazione, simulando il comportamento dell'utente finale. Questo tipo di test esegue la **Spring Boot Application completa** e verifica che tutto funzioni come in produzione.  
+
+**Strumenti:**  
+- **Selenium** o **Cypress** per automatizzare interazioni con l'interfaccia utente.  
+- **RestAssured** per testare API REST in modo programmatico.  
+- **Docker** per simulare ambienti reali.  
+
+**Esempio di E2E Test (API REST):**  
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+class UserApiTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void shouldReturnUserDetails() throws Exception {
+        mockMvc.perform(get("/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("John Doe"));
+    }
+}
+```  
+**In questo test:**  
+- **MockMvc** simula chiamate HTTP.  
+- **@SpringBootTest** avvia l'app su una porta casuale per simulare un ambiente reale.  
+- Si verifica che l'API risponda correttamente con dati JSON attesi.  
+
+I test E2E simulano l'esperienza dell'utente, garantendo che **tutti i componenti lavorino insieme** correttamente.  
+
+---
+
+### Come Mantenere un Buon Equilibrio  
+- **80% Unit Test** – Sono la base, veloci e coprono gran parte del codice.  
+- **15% Integration Test** – Validano che i componenti comunichino tra loro.  
+- **5% E2E Test** – Pochi, ma cruciali per testare l'intero sistema.  
+
+Con questa piramide ben bilanciata, il tuo progetto Spring Boot sarà **robusto, testato e pronto per la produzione**.  
 
 ## Collegamenti Esterni
 
